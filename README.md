@@ -82,14 +82,14 @@ CUDA = 10.0.0 (如果使用GPU)
 
 ### 依赖库安装
 
-```bash
-# 基础依赖
+```cmd
+REM 基础依赖
 pip install torch torchvision
 
-# FLOPs和参数量计算
+REM FLOPs和参数量计算
 pip install thop
 
-# ImageNet加速（可选，用于加速ImageNet数据加载）
+REM ImageNet加速（可选，用于加速ImageNet数据加载）
 pip install nvidia-dali-cuda100
 ```
 
@@ -109,60 +109,23 @@ pip install nvidia-dali-cuda100
 
 ### 1. CIFAR-10 上剪枝 ResNet56
 
-```bash
-# 使用ABC算法搜索最优剪枝配置并训练
-python bee_cifar.py \
-  --data_set cifar10 \
-  --data_path ./data \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --honey_model ./pretrain/resnet56_cifar10.pth \
-  --job_dir ./experiments/resnet56_prune \
-  --gpus 0 \
-  --lr 0.01 \
-  --lr_decay_step 50 100 \
-  --num_epochs 150 \
-  --train_batch_size 128 \
-  --calfitness_epoch 2 \
-  --max_cycle 10 \
-  --max_preserve 9 \
-  --food_number 10 \
-  --food_limit 5 \
-  --random_rule random_pretrain
+```cmd
+REM 使用ABC算法搜索最优剪枝配置并训练
+python bee_cifar.py --data_set cifar10 --data_path ./data --arch resnet_cifar --cfg resnet56 --honey_model ./pretrain/resnet56_cifar10.pth --job_dir ./experiments/resnet56_prune --gpus 0 --lr 0.01 --lr_decay_step 50 100 --num_epochs 150 --train_batch_size 128 --calfitness_epoch 2 --max_cycle 10 --max_preserve 9 --food_number 10 --food_limit 5 --random_rule random_pretrain
 ```
 
 ### 2. ImageNet 上剪枝 ResNet18
 
-```bash
-# 使用ABC算法搜索最优剪枝配置
-python bee_imagenet.py \
-  --data_path /data/ImageNet2012 \
-  --honey_model ./pretrain/resnet18.pth \
-  --job_dir ./experiments/resnet18_imagenet \
-  --arch resnet \
-  --cfg resnet18 \
-  --gpus 0 \
-  --lr 0.01 \
-  --lr_decay_step 75 112 \
-  --num_epochs 150 \
-  --calfitness_epoch 2 \
-  --max_cycle 50 \
-  --max_preserve 9 \
-  --food_number 10 \
-  --food_limit 5 \
-  --random_rule random_pretrain \
-  --warm_up
+```cmd
+REM 使用ABC算法搜索最优剪枝配置
+python bee_imagenet.py --data_path D:\data\ImageNet2012 --honey_model ./pretrain/resnet18.pth --job_dir ./experiments/resnet18_imagenet --arch resnet --cfg resnet18 --gpus 0 --lr 0.01 --lr_decay_step 75 112 --num_epochs 150 --calfitness_epoch 2 --max_cycle 50 --max_preserve 9 --food_number 10 --food_limit 5 --random_rule random_pretrain --warm_up
 ```
 
 ### 3. 计算模型 FLOPs 和参数量
 
-```bash
-# 比较原始模型和剪枝模型的FLOPs、参数量
-python get_flops_params.py \
-  --data_set cifar10 \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --honey "5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5"
+```cmd
+REM 比较原始模型和剪枝模型的FLOPs、参数量
+python get_flops_params.py --data_set cifar10 --arch resnet_cifar --cfg resnet56 --honey "5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5"
 ```
 
 **输出示例：**
@@ -185,18 +148,9 @@ FLOPS Compress Rate: 58.54 M/125.49 M(53.38%)
 
 ### 4. 测试已剪枝的模型
 
-```bash
-# 直接测试已剪枝并训练好的模型
-python bee_imagenet.py \
-  --data_path /data/ImageNet2012 \
-  --job_dir ./experiments/resnet18_test \
-  --arch resnet \
-  --cfg resnet18 \
-  --honey_model ./pretrain/resnet18.pth \
-  --best_honey 5 5 5 5 5 5 5 5 \
-  --best_honey_s ./pruned/resnet18_pruned.pth \
-  --test_only \
-  --gpus 0
+```cmd
+REM 直接测试已剪枝并训练好的模型
+python bee_imagenet.py --data_path D:\data\ImageNet2012 --job_dir ./experiments/resnet18_test --arch resnet --cfg resnet18 --honey_model ./pretrain/resnet18.pth --best_honey 5 5 5 5 5 5 5 5 --best_honey_s ./pruned/resnet18_pruned.pth --test_only --gpus 0
 ```
 
 ---
@@ -209,46 +163,27 @@ ABCPruner 支持三种主要运行模式：
 
 #### 模式1: 完整的剪枝流程（推荐新手）
 
-```bash
-# 从预训练模型开始，自动搜索最优剪枝配置，然后训练
-python bee_cifar.py \
-  --data_set cifar10 \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --honey_model ./pretrain/resnet56.pth \
-  --job_dir ./experiments/resnet56 \
-  --gpus 0
+```cmd
+REM 从预训练模型开始，自动搜索最优剪枝配置，然后训练
+python bee_cifar.py --data_set cifar10 --arch resnet_cifar --cfg resnet56 --honey_model ./pretrain/resnet56.pth --job_dir ./experiments/resnet56 --gpus 0
 ```
 
 **流程**：预训练模型 → ABC搜索 → 剪枝 → 微调训练 → 保存最优模型
 
 #### 模式2: 使用已知剪枝配置（跳过搜索）
 
-```bash
-# 如果已经有最优的剪枝配置（honey code），直接使用
-python bee_cifar.py \
-  --data_set cifar10 \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --honey_model ./pretrain/resnet56.pth \
-  --job_dir ./experiments/resnet56_finetune \
-  --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 \
-  --gpus 0
+```cmd
+REM 如果已经有最优的剪枝配置（honey code），直接使用
+python bee_cifar.py --data_set cifar10 --arch resnet_cifar --cfg resnet56 --honey_model ./pretrain/resnet56.pth --job_dir ./experiments/resnet56_finetune --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 --gpus 0
 ```
 
 **流程**：预训练模型 → 直接剪枝 → 微调训练
 
 #### 模式3: 从检查点恢复训练
 
-```bash
-# 从之前保存的检查点继续训练
-python bee_cifar.py \
-  --data_set cifar10 \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --resume ./experiments/resnet56/checkpoint/model_100.pt \
-  --job_dir ./experiments/resnet56_resume \
-  --gpus 0
+```cmd
+REM 从之前保存的检查点继续训练
+python bee_cifar.py --data_set cifar10 --arch resnet_cifar --cfg resnet56 --resume ./experiments/resnet56/checkpoint/model_100.pt --job_dir ./experiments/resnet56_resume --gpus 0
 ```
 
 **流程**：加载检查点 → 继续训练
@@ -266,18 +201,18 @@ python bee_cifar.py \
 | `--data_path` | str | `'/home/lmb/cvpr_vgg2/data'` | 数据集存储路径。CIFAR数据集会自动下载到此路径 |
 
 **使用示例：**
-```bash
-# 使用GPU 0
+```cmd
+REM 使用GPU 0
 --gpus 0
 
-# 使用多GPU（0,1,2,3）
+REM 使用多GPU（0,1,2,3）
 --gpus 0 1 2 3
 
-# 使用CIFAR-10数据集
+REM 使用CIFAR-10数据集
 --data_set cifar10 --data_path ./data/cifar10
 
-# 使用ImageNet数据集
---data_set imagenet --data_path /data/ImageNet2012
+REM 使用ImageNet数据集
+--data_set imagenet --data_path D:\data\ImageNet2012
 ```
 
 ---
@@ -290,14 +225,14 @@ python bee_cifar.py \
 | `--cfg` | str | `'vgg16'` | 具体的网络配置。可选：`vgg16`、`resnet18`、`resnet34`、`resnet50`、`resnet56`、`resnet110`、`googlenet`、`densenet` |
 
 **使用示例：**
-```bash
-# CIFAR-10上的ResNet56
+```cmd
+REM CIFAR-10上的ResNet56
 --arch resnet_cifar --cfg resnet56
 
-# ImageNet上的ResNet50
+REM ImageNet上的ResNet50
 --arch resnet --cfg resnet50
 
-# CIFAR-10上的VGG16
+REM CIFAR-10上的VGG16
 --arch vgg_cifar --cfg vgg16
 ```
 
@@ -316,14 +251,14 @@ python bee_cifar.py \
 | `--weight_decay` | float | `1e-4` | 权重衰减（L2正则化）系数。通常1e-4到5e-4 |
 
 **使用示例：**
-```bash
-# CIFAR-10标准配置
+```cmd
+REM CIFAR-10标准配置
 --num_epochs 150 --lr 0.1 --lr_decay_step 50 100 --train_batch_size 128
 
-# ImageNet标准配置
+REM ImageNet标准配置
 --num_epochs 90 --lr 0.01 --lr_decay_step 30 60 --train_batch_size 256
 
-# 学习率预热（ImageNet推荐）
+REM 学习率预热（ImageNet推荐）
 --lr 0.01 --warm_up
 ```
 
@@ -343,17 +278,17 @@ python bee_cifar.py \
 
 **ABC算法参数调优建议：**
 
-```bash
-# 快速测试配置（约1-2小时，CIFAR-10）
+```cmd
+REM 快速测试配置（约1-2小时，CIFAR-10）
 --calfitness_epoch 1 --max_cycle 5 --food_number 5
 
-# 标准配置（约5-10小时，CIFAR-10）
+REM 标准配置（约5-10小时，CIFAR-10）
 --calfitness_epoch 2 --max_cycle 10 --food_number 10
 
-# 高质量配置（约20-30小时，CIFAR-10）
+REM 高质量配置（约20-30小时，CIFAR-10）
 --calfitness_epoch 5 --max_cycle 20 --food_number 20
 
-# ImageNet配置（需要更多周期）
+REM ImageNet配置（需要更多周期）
 --calfitness_epoch 2 --max_cycle 50 --food_number 10
 ```
 
@@ -369,26 +304,19 @@ python bee_cifar.py \
 | `--random_rule` | str | `'default'` | 权重继承规则。可选：`default`（直接复制）、`random_pretrain`（随机选择通道）、`l1_pretrain`（基于L1范数选择重要通道，推荐）|
 
 **使用示例：**
-```bash
-# 运行ABC搜索（会在日志中输出最优honey code）
+```cmd
+REM 运行ABC搜索（会在日志中输出最优honey code）
 python bee_cifar.py --honey_model ./pretrain/resnet56.pth --job_dir ./exp1
 
-# 查看搜索结果
-cat ./exp1/logger.log | grep "Best Honey Source"
-# 输出: Best Honey Source [5, 5, 5, 5, 5, 5, 5, 5, ...]
+REM 查看搜索结果
+findstr "Best Honey Source" ./exp1/logger.log
+REM 输出: Best Honey Source [5, 5, 5, 5, 5, 5, 5, 5, ...]
 
-# 使用搜索到的配置直接剪枝（跳过搜索）
-python bee_cifar.py \
-  --honey_model ./pretrain/resnet56.pth \
-  --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 \
-  --job_dir ./exp2
+REM 使用搜索到的配置直接剪枝（跳过搜索）
+python bee_cifar.py --honey_model ./pretrain/resnet56.pth --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 --job_dir ./exp2
 
-# 测试已剪枝的模型
-python bee_cifar.py \
-  --honey_model ./pretrain/resnet56.pth \
-  --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 \
-  --best_honey_s ./exp1/checkpoint/bestmodel_after_bee.pt \
-  --test_only
+REM 测试已剪枝的模型
+python bee_cifar.py --honey_model ./pretrain/resnet56.pth --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 --best_honey_s ./exp1/checkpoint/bestmodel_after_bee.pt --test_only
 ```
 
 ---
@@ -428,17 +356,17 @@ job_dir/
 | `--split_optimizer` | bool flag | `False` | 分离需要权重衰减的参数 |
 
 **使用示例：**
-```bash
-# 仅测试模型
+```cmd
+REM 仅测试模型
 --test_only
 
-# 训练未剪枝的baseline模型
+REM 训练未剪枝的baseline模型
 --from_scratch
 
-# ImageNet训练使用学习率预热
+REM ImageNet训练使用学习率预热
 --warm_up
 
-# 使用标签平滑提升泛化能力
+REM 使用标签平滑提升泛化能力
 --label_smooth
 ```
 
@@ -448,78 +376,34 @@ job_dir/
 
 ### 示例1: CIFAR-10上完整的剪枝流程
 
-```bash
-# Step 1: 创建目录
-mkdir -p pretrain data experiments
+```cmd
+REM Step 1: 创建目录
+mkdir pretrain
+mkdir data
+mkdir experiments
 
-# Step 2: 下载预训练模型（ResNet56）
-# 从Google Drive下载到 pretrain/resnet56_cifar10.pth
+REM Step 2: 下载预训练模型（ResNet56）
+REM 从Google Drive下载到 pretrain\resnet56_cifar10.pth
 
-# Step 3: 运行ABC算法搜索最优剪枝配置
-python bee_cifar.py \
-  --data_set cifar10 \
-  --data_path ./data \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --honey_model ./pretrain/resnet56_cifar10.pth \
-  --job_dir ./experiments/resnet56_abc \
-  --gpus 0 \
-  --num_epochs 150 \
-  --lr 0.01 \
-  --lr_decay_step 50 100 \
-  --train_batch_size 128 \
-  --calfitness_epoch 2 \
-  --max_cycle 10 \
-  --max_preserve 9 \
-  --food_number 10 \
-  --food_limit 5 \
-  --random_rule l1_pretrain
+REM Step 3: 运行ABC算法搜索最优剪枝配置
+python bee_cifar.py --data_set cifar10 --data_path ./data --arch resnet_cifar --cfg resnet56 --honey_model ./pretrain/resnet56_cifar10.pth --job_dir ./experiments/resnet56_abc --gpus 0 --num_epochs 150 --lr 0.01 --lr_decay_step 50 100 --train_batch_size 128 --calfitness_epoch 2 --max_cycle 10 --max_preserve 9 --food_number 10 --food_limit 5 --random_rule l1_pretrain
 
-# Step 4: 查看搜索到的最优配置
-cat ./experiments/resnet56_abc/logger.log | grep "Best Honey Source"
-# 假设输出: Best Honey Source [5, 5, 5, 5, 5, 5, 5, ...]
+REM Step 4: 查看搜索到的最优配置
+findstr "Best Honey Source" ./experiments/resnet56_abc/logger.log
+REM 假设输出: Best Honey Source [5, 5, 5, 5, 5, 5, 5, ...]
 
-# Step 5: 计算剪枝后的FLOPs和参数量
-python get_flops_params.py \
-  --data_set cifar10 \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --honey "5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5"
+REM Step 5: 计算剪枝后的FLOPs和参数量
+python get_flops_params.py --data_set cifar10 --arch resnet_cifar --cfg resnet56 --honey "5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5"
 
-# Step 6: 测试最终模型
-python bee_cifar.py \
-  --data_set cifar10 \
-  --data_path ./data \
-  --arch resnet_cifar \
-  --cfg resnet56 \
-  --honey_model ./pretrain/resnet56_cifar10.pth \
-  --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 \
-  --best_honey_s ./experiments/resnet56_abc/checkpoint/bestmodel_after_bee.pt \
-  --job_dir ./experiments/resnet56_test \
-  --test_only \
-  --gpus 0
+REM Step 6: 测试最终模型
+python bee_cifar.py --data_set cifar10 --data_path ./data --arch resnet_cifar --cfg resnet56 --honey_model ./pretrain/resnet56_cifar10.pth --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 --best_honey_s ./experiments/resnet56_abc/checkpoint/bestmodel_after_bee.pt --job_dir ./experiments/resnet56_test --test_only --gpus 0
 ```
 
 ### 示例2: ImageNet上快速测试
 
-```bash
-# 使用较小的搜索周期快速测试
-python bee_imagenet.py \
-  --data_path /data/ImageNet2012 \
-  --honey_model ./pretrain/resnet18.pth \
-  --job_dir ./experiments/resnet18_quick \
-  --arch resnet \
-  --cfg resnet18 \
-  --gpus 0 \
-  --num_epochs 90 \
-  --lr 0.01 \
-  --lr_decay_step 30 60 \
-  --train_batch_size 256 \
-  --calfitness_epoch 1 \
-  --max_cycle 10 \
-  --food_number 5 \
-  --random_rule random_pretrain \
-  --warm_up
+```cmd
+REM 使用较小的搜索周期快速测试
+python bee_imagenet.py --data_path D:\data\ImageNet2012 --honey_model ./pretrain/resnet18.pth --job_dir ./experiments/resnet18_quick --arch resnet --cfg resnet18 --gpus 0 --num_epochs 90 --lr 0.01 --lr_decay_step 30 60 --train_batch_size 256 --calfitness_epoch 1 --max_cycle 10 --food_number 5 --random_rule random_pretrain --warm_up
 ```
 
 ---
@@ -531,15 +415,15 @@ python bee_imagenet.py \
 **原因**：GPU显存不足
 
 **解决方案**：
-```bash
-# 减小batch size
+```cmd
+REM 减小batch size
 --train_batch_size 64 --eval_batch_size 128
 
-# 减少食物源数量
+REM 减少食物源数量
 --food_number 5
 
-# 使用更小的网络
---cfg resnet18  # 而不是resnet50
+REM 使用更小的网络
+--cfg resnet18  REM 而不是resnet50
 ```
 
 ### 2. ABC搜索时间过长
@@ -547,14 +431,14 @@ python bee_imagenet.py \
 **原因**：搜索周期和适应度计算轮数太多
 
 **解决方案**：
-```bash
-# 减少搜索周期
+```cmd
+REM 减少搜索周期
 --max_cycle 5
 
-# 减少适应度计算轮数
+REM 减少适应度计算轮数
 --calfitness_epoch 1
 
-# 减少食物源数量
+REM 减少食物源数量
 --food_number 5
 ```
 
@@ -563,41 +447,41 @@ python bee_imagenet.py \
 **原因**：剪枝过于激进
 
 **解决方案**：
-```bash
-# 增大max_preserve，保留更多通道
---max_preserve 7  # 或 8、9
+```cmd
+REM 增大max_preserve，保留更多通道
+--max_preserve 7  REM 或 8、9
 
-# 使用L1范数选择重要通道
+REM 使用L1范数选择重要通道
 --random_rule l1_pretrain
 
-# 增加微调训练的轮数
+REM 增加微调训练的轮数
 --num_epochs 200
 ```
 
 ### 4. ImageNet数据加载慢
 
 **解决方案**：
-```bash
-# 安装NVIDIA DALI加速库
+```cmd
+REM 安装NVIDIA DALI加速库
 pip install nvidia-dali-cuda100
 
-# 增加数据加载线程（在代码中修改num_workers）
+REM 增加数据加载线程（在代码中修改num_workers）
 ```
 
 ### 5. 如何选择最优的ABC参数？
 
 **快速实验**（1-2小时）：
-```bash
+```cmd
 --calfitness_epoch 1 --max_cycle 5 --food_number 5
 ```
 
 **标准实验**（5-10小时）：
-```bash
+```cmd
 --calfitness_epoch 2 --max_cycle 10 --food_number 10
 ```
 
 **高质量实验**（20-30小时）：
-```bash
+```cmd
 --calfitness_epoch 5 --max_cycle 20 --food_number 20
 ```
 
