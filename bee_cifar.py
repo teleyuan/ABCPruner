@@ -43,35 +43,10 @@ conv_num_cfg = {
     }
 food_dimension = conv_num_cfg[args.cfg]  # 食物源维度 = 可剪枝的卷积层数量
 
-# 加载数据集
-print('==> Loading Data..')
-if args.data_set == 'cifar10':
-    loader = cifar10.Data(args)
-elif args.data_set == 'cifar100':
-    loader = cifar100.Data(args)
-else:
-    loader = imagenet.Data(args)
-
-
-# 加载原始预训练模型
-print('==> Loading Model..')
-if args.arch == 'vgg_cifar':
-    origin_model = import_module(f'model.{args.arch}').VGG(args.cfg).to(device)
-elif args.arch == 'resnet_cifar':
-    origin_model = import_module(f'model.{args.arch}').resnet(args.cfg).to(device)
-elif args.arch == 'googlenet':
-    origin_model = import_module(f'model.{args.arch}').googlenet().to(device)
-elif args.arch == 'densenet':
-    origin_model = import_module(f'model.{args.arch}').densenet().to(device)
-
-# 检查预训练模型路径是否存在
-if args.honey_model is None or not os.path.exists(args.honey_model):
-    raise ('Honey_model path should be exist!')
-
-# 加载预训练模型权重
-ckpt = torch.load(args.honey_model, map_location=device)
-origin_model.load_state_dict(ckpt['state_dict'])
-oristate_dict = origin_model.state_dict()  # 保存原始模型的状态字典，用于后续权重继承
+# 全局变量声明（将在main中初始化）
+loader = None
+origin_model = None
+oristate_dict = None
 
 
 # ==================== 人工蜂群算法核心数据结构 ====================
@@ -787,10 +762,14 @@ def initilize():
     4. 记录初始最优解
     """
     print('==> Initilizing Honey_model..')
+    print(f'==> Total food sources to initialize: {args.food_number}')
     global best_honey, NectraSource, EmployedBee, OnLooker
 
     # 创建food_number个食物源及其对应的蜜蜂
     for i in range(args.food_number):
+        print(f'\n==> Initializing food source [{i+1}/{args.food_number}]')
+        init_start_time = time.time()
+
         # 创建蜜蜂群体对象
         NectraSource.append(copy.deepcopy(BeeGroup()))  # 食物源
         EmployedBee.append(copy.deepcopy(BeeGroup()))   # 雇佣蜂
@@ -800,10 +779,16 @@ def initilize():
         for j in range(food_dimension):
             NectraSource[i].code.append(copy.deepcopy(random.randint(1, args.max_preserve)))
 
+        print(f'    Generated code: {NectraSource[i].code}')
+        print(f'    Calculating fitness (training for {args.calfitness_epoch} epochs)...')
+
         # 初始化食物源的属性
         NectraSource[i].fitness = calculationFitness(NectraSource[i].code, loader.trainLoader, args)  # 计算适应度
         NectraSource[i].rfitness = 0  # 相对适应度（用于概率计算）
         NectraSource[i].trail = 0     # 未改进次数计数器
+
+        init_end_time = time.time()
+        print(f'    Fitness: {float(NectraSource[i].fitness):.2f}% | Time: {init_end_time - init_start_time:.2f}s')
 
         # 初始化雇佣蜂（复制食物源的信息）
         EmployedBee[i].code = copy.deepcopy(NectraSource[i].code)
@@ -823,6 +808,9 @@ def initilize():
     best_honey.rfitness = NectraSource[0].rfitness
     best_honey.trail = NectraSource[0].trail
 
+    print(f'\n==> Initialization complete!')
+    print(f'==> Initial best fitness: {float(best_honey.fitness):.2f}%')
+
 def sendEmployedBees():
     """
     派遣雇佣蜂阶段
@@ -833,9 +821,12 @@ def sendEmployedBees():
     3. 如果新解更好，则更新食物源；否则增加trail计数
     """
     global NectraSource, EmployedBee
+    print(f'\n==> Sending Employed Bees (Total: {args.food_number})')
 
     # 遍历每个食物源，派遣对应的雇佣蜂
     for i in range(args.food_number):
+        print(f'    Employed Bee [{i+1}/{args.food_number}] searching...', end=' ', flush=True)
+        bee_start_time = time.time()
         # 随机选择一个不同的食物源k进行比较
         while 1:
             k = random.randint(0, args.food_number-1)
@@ -865,14 +856,18 @@ def sendEmployedBees():
         # 计算新解的适应度
         EmployedBee[i].fitness = calculationFitness(EmployedBee[i].code, loader.trainLoader, args)
 
+        bee_end_time = time.time()
         # 贪婪选择：如果新解更好，则更新食物源
         if EmployedBee[i].fitness > NectraSource[i].fitness:
+            improvement = float(EmployedBee[i].fitness - NectraSource[i].fitness)
             NectraSource[i].code = copy.deepcopy(EmployedBee[i].code)
             NectraSource[i].trail = 0  # 重置未改进计数器
             NectraSource[i].fitness = EmployedBee[i].fitness
+            print(f'Improved! {float(EmployedBee[i].fitness):.2f}% (↑{improvement:.2f}%) [{bee_end_time - bee_start_time:.1f}s]')
         else:
             # 新解不如原解，增加未改进计数器
             NectraSource[i].trail = NectraSource[i].trail + 1
+            print(f'No improvement. Keep {float(NectraSource[i].fitness):.2f}% (trail={NectraSource[i].trail}) [{bee_end_time - bee_start_time:.1f}s]')
 
 def calculateProbabilities():
     """
@@ -905,6 +900,7 @@ def sendOnlookerBees():
     3. 如果找到更好的解则更新，否则增加trail计数
     """
     global NectraSource, EmployedBee, OnLooker
+    print(f'\n==> Sending Onlooker Bees (Total: {args.food_number})')
     i = 0  # 当前考察的食物源索引
     t = 0  # 已派出的观察蜂数量
 
@@ -916,6 +912,8 @@ def sendOnlookerBees():
         # 如果随机数小于当前食物源的相对适应度，则选中该食物源
         if R_choosed < NectraSource[i].rfitness:
             t += 1  # 观察蜂计数+1
+            print(f'    Onlooker Bee [{t}/{args.food_number}] selected source {i+1}...', end=' ', flush=True)
+            onlooker_start_time = time.time()
 
             # 随机选择另一个食物源k进行比较
             while 1:
@@ -946,14 +944,17 @@ def sendOnlookerBees():
             # 计算新解的适应度
             OnLooker[i].fitness = calculationFitness(OnLooker[i].code, loader.trainLoader, args)
 
+            onlooker_end_time = time.time()
             # 贪婪选择：如果新解更好，则更新食物源
             if OnLooker[i].fitness > NectraSource[i].fitness:
                 NectraSource[i].code = copy.deepcopy(OnLooker[i].code)
                 NectraSource[i].trail = 0  # 重置未改进计数器
                 NectraSource[i].fitness = OnLooker[i].fitness
+                print(f'Improved! {float(OnLooker[i].fitness):.2f}% [{onlooker_end_time - onlooker_start_time:.1f}s]')
             else:
                 # 新解不如原解，增加未改进计数器
                 NectraSource[i].trail = NectraSource[i].trail + 1
+                print(f'No improvement. [{onlooker_end_time - onlooker_start_time:.1f}s]')
 
         # 移动到下一个食物源
         i += 1
@@ -979,6 +980,9 @@ def sendScoutBees():
 
     # 如果该食物源的trail超过限制，则放弃它并重新初始化
     if NectraSource[maxtrailindex].trail >= args.food_limit:
+        print(f'\n==> Sending Scout Bee: Abandoning food source {maxtrailindex+1} (trail={NectraSource[maxtrailindex].trail})')
+        scout_start_time = time.time()
+
         # 为每个维度随机生成新的编码值
         for j in range(food_dimension):
             R = random.uniform(0, 1)
@@ -987,12 +991,20 @@ def sendScoutBees():
             if NectraSource[maxtrailindex].code[j] == 0:
                 NectraSource[maxtrailindex].code[j] += 1
 
+        print(f'    New random code: {NectraSource[maxtrailindex].code}')
+        print(f'    Calculating fitness...')
+
         # 重置trail计数器
         NectraSource[maxtrailindex].trail = 0
         # 计算新食物源的适应度
         NectraSource[maxtrailindex].fitness = calculationFitness(
             NectraSource[maxtrailindex].code, loader.trainLoader, args
         )
+
+        scout_end_time = time.time()
+        print(f'    New fitness: {float(NectraSource[maxtrailindex].fitness):.2f}% [{scout_end_time - scout_start_time:.1f}s]')
+    else:
+        print(f'\n==> Scout Bee: No food source to abandon (max trail={NectraSource[maxtrailindex].trail}/{args.food_limit})')
  
 def memorizeBestSource():
     """
@@ -1002,12 +1014,18 @@ def memorizeBestSource():
     """
     global best_honey, NectraSource
 
+    old_best_fitness = best_honey.fitness
     # 遍历所有食物源，寻找适应度最高的
     for i in range(args.food_number):
         if NectraSource[i].fitness > best_honey.fitness:
             # 更新全局最优解
             best_honey.code = copy.deepcopy(NectraSource[i].code)
             best_honey.fitness = NectraSource[i].fitness
+
+    if best_honey.fitness > old_best_fitness:
+        improvement = float(best_honey.fitness - old_best_fitness)
+        print(f'\n*** NEW BEST SOLUTION FOUND! Fitness: {float(best_honey.fitness):.2f}% (↑{improvement:.2f}%) ***')
+        print(f'*** Best Code: {best_honey.code} ***')
 
 
 def main():
@@ -1020,6 +1038,40 @@ def main():
     3. 训练剪枝模型直到收敛
     4. 保存最优模型和检查点
     """
+    # 声明全局变量
+    global loader, origin_model, oristate_dict
+
+    # 加载数据集
+    import datetime
+    startup_time = datetime.datetime.now().strftime("%H:%M:%S.%f")[:-3]
+    print(f'==> [{startup_time}] Loading Data..')
+    if args.data_set == 'cifar10':
+        loader = cifar10.Data(args)
+    elif args.data_set == 'cifar100':
+        loader = cifar100.Data(args)
+    else:
+        loader = imagenet.Data(args)
+
+    # 加载原始预训练模型
+    print(f'==> [{startup_time}] Loading Model..')
+    if args.arch == 'vgg_cifar':
+        origin_model = import_module(f'model.{args.arch}').VGG(args.cfg).to(device)
+    elif args.arch == 'resnet_cifar':
+        origin_model = import_module(f'model.{args.arch}').resnet(args.cfg).to(device)
+    elif args.arch == 'googlenet':
+        origin_model = import_module(f'model.{args.arch}').googlenet().to(device)
+    elif args.arch == 'densenet':
+        origin_model = import_module(f'model.{args.arch}').densenet().to(device)
+
+    # 检查预训练模型路径是否存在
+    if args.honey_model is None or not os.path.exists(args.honey_model):
+        raise ('Honey_model path should be exist!')
+
+    # 加载预训练模型权重
+    ckpt = torch.load(args.honey_model, map_location=device)
+    origin_model.load_state_dict(ckpt['state_dict'])
+    oristate_dict = origin_model.state_dict()  # 保存原始模型的状态字典，用于后续权重继承
+
     start_epoch = 0  # 训练起始epoch
     best_acc = 0.0   # 记录最优准确率
     code = []        # 剪枝编码
@@ -1042,9 +1094,17 @@ def main():
             # ABC算法主循环：执行max_cycle个搜索周期
             for cycle in range(args.max_cycle):
                 current_time = time.time()
+                print('\n' + '='*80)
+                print(f'SEARCH CYCLE [{cycle+1}/{args.max_cycle}]')
+                print(f'Current Best Fitness: {float(best_honey.fitness):.2f}%')
+                print(f'Current Best Code: {best_honey.code}')
+                if cycle > 0:
+                    print(f'Cycle Time: {current_time - start_time:.2f}s')
+                print('='*80)
+
                 logger.info(
                     'Search Cycle [{}]\t Best Honey Source {}\tBest Honey Source fitness {:.2f}%\tTime {:.2f}s\n'
-                    .format(cycle, best_honey.code, float(best_honey.fitness), (current_time - start_time))
+                    .format(cycle, best_honey.code, float(best_honey.fitness), (current_time - start_time) if cycle > 0 else 0)
                 )
                 start_time = time.time()
 
@@ -1052,6 +1112,7 @@ def main():
                 sendEmployedBees()
 
                 # 第二阶段：计算选择概率
+                print('\n==> Calculating Probabilities...')
                 calculateProbabilities()
 
                 # 第三阶段：派遣观察蜂
@@ -1059,6 +1120,9 @@ def main():
 
                 # 第四阶段：派遣侦察蜂（替换停滞的食物源）
                 sendScoutBees()
+
+                # 第五阶段：记忆最优解
+                memorizeBestSource()
 
             print('==> BeePruning Complete!')
             bee_end_time = time.time()
