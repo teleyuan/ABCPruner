@@ -152,8 +152,9 @@ parser.add_argument(
 parser.add_argument(
     '--lr_decay_step',
     type=int,
-    default=30,
-    help='the iterval of learn rate decay. default:30'
+    nargs='+',
+    default=[30],
+    help='the iterval of learn rate decay. default:[30]. Example: --lr_decay_step 50 100'
 )
 
 parser.add_argument(

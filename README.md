@@ -111,23 +111,23 @@ pip install nvidia-dali-cuda100
 
 ```cmd
 REM 使用ABC算法搜索最优剪枝配置并训练
-python bee_cifar.py ^
-    --data_set cifar10 ^
-    --data_path ./data ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
-    --honey_model ./pretrain/resnet56_cifar10.pth ^
-    --job_dir ./experiments/resnet56_prune ^
-    --gpus 0 ^
-    --lr 0.01 ^
-    --lr_decay_step 50 100 ^
-    --num_epochs 150 ^
-    --train_batch_size 128 ^
-    --calfitness_epoch 2 ^
-    --max_cycle 10 ^
-    --max_preserve 9 ^
-    --food_number 10 ^
-    --food_limit 5 ^
+python bee_cifar.py `
+    --data_set cifar10 `
+    --data_path ./data `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --honey_model ./pretrain/resnet56_cifar10.pth `
+    --job_dir ./experiments/resnet56_prune `
+    --gpus 0 `
+    --lr 0.01 `
+    --lr_decay_step 50 100 `
+    --num_epochs 150 `
+    --train_batch_size 128 `
+    --calfitness_epoch 2 `
+    --max_cycle 10 `
+    --max_preserve 9 `
+    --food_number 10 `
+    --food_limit 5 `
     --random_rule random_pretrain
 ```
 
@@ -135,22 +135,22 @@ python bee_cifar.py ^
 
 ```cmd
 REM 使用ABC算法搜索最优剪枝配置
-python bee_imagenet.py ^
-    --data_path D:\data\ImageNet2012 ^
-    --honey_model ./pretrain/resnet18.pth ^
-    --job_dir ./experiments/resnet18_imagenet ^
-    --arch resnet ^
-    --cfg resnet18 ^
-    --gpus 0 ^
-    --lr 0.01 ^
-    --lr_decay_step 75 112 ^
-    --num_epochs 150 ^
-    --calfitness_epoch 2 ^
-    --max_cycle 50 ^
-    --max_preserve 9 ^
-    --food_number 10 ^
-    --food_limit 5 ^
-    --random_rule random_pretrain ^
+python bee_imagenet.py `
+    --data_path D:\data\ImageNet2012 `
+    --honey_model ./pretrain/resnet18.pth `
+    --job_dir ./experiments/resnet18_imagenet `
+    --arch resnet `
+    --cfg resnet18 `
+    --gpus 0 `
+    --lr 0.01 `
+    --lr_decay_step 75 112 `
+    --num_epochs 150 `
+    --calfitness_epoch 2 `
+    --max_cycle 50 `
+    --max_preserve 9 `
+    --food_number 10 `
+    --food_limit 5 `
+    --random_rule random_pretrain `
     --warm_up
 ```
 
@@ -158,10 +158,10 @@ python bee_imagenet.py ^
 
 ```cmd
 REM 比较原始模型和剪枝模型的FLOPs、参数量
-python get_flops_params.py ^
-    --data_set cifar10 ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
+python get_flops_params.py `
+    --data_set cifar10 `
+    --arch resnet_cifar `
+    --cfg resnet56 `
     --honey "5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5"
 ```
 
@@ -187,15 +187,15 @@ FLOPS Compress Rate: 58.54 M/125.49 M(53.38%)
 
 ```cmd
 REM 直接测试已剪枝并训练好的模型
-python bee_imagenet.py ^
-    --data_path D:\data\ImageNet2012 ^
-    --job_dir ./experiments/resnet18_test ^
-    --arch resnet ^
-    --cfg resnet18 ^
-    --honey_model ./pretrain/resnet18.pth ^
-    --best_honey 5 5 5 5 5 5 5 5 ^
-    --best_honey_s ./pruned/resnet18_pruned.pth ^
-    --test_only ^
+python bee_imagenet.py `
+    --data_path D:\data\ImageNet2012 `
+    --job_dir ./experiments/resnet18_test `
+    --arch resnet `
+    --cfg resnet18 `
+    --honey_model ./pretrain/resnet18.pth `
+    --best_honey 5 5 5 5 5 5 5 5 `
+    --best_honey_s ./pruned/resnet18_pruned.pth `
+    --test_only `
     --gpus 0
 ```
 
@@ -211,12 +211,12 @@ ABCPruner 支持三种主要运行模式：
 
 ```cmd
 REM 从预训练模型开始，自动搜索最优剪枝配置，然后训练
-python bee_cifar.py ^
-    --data_set cifar10 ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
-    --honey_model ./pretrain/resnet56.pth ^
-    --job_dir ./experiments/resnet56 ^
+python bee_cifar.py `
+    --data_set cifar10 `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --honey_model ./pretrain/resnet56.pth `
+    --job_dir ./experiments/resnet56 `
     --gpus 0
 ```
 
@@ -226,13 +226,13 @@ python bee_cifar.py ^
 
 ```cmd
 REM 如果已经有最优的剪枝配置（honey code），直接使用
-python bee_cifar.py ^
-    --data_set cifar10 ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
-    --honey_model ./pretrain/resnet56.pth ^
-    --job_dir ./experiments/resnet56_finetune ^
-    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 ^
+python bee_cifar.py `
+    --data_set cifar10 `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --honey_model ./pretrain/resnet56.pth `
+    --job_dir ./experiments/resnet56_finetune `
+    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 `
     --gpus 0
 ```
 
@@ -242,12 +242,12 @@ python bee_cifar.py ^
 
 ```cmd
 REM 从之前保存的检查点继续训练
-python bee_cifar.py ^
-    --data_set cifar10 ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
-    --resume ./experiments/resnet56/checkpoint/model_100.pt ^
-    --job_dir ./experiments/resnet56_resume ^
+python bee_cifar.py `
+    --data_set cifar10 `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --resume ./experiments/resnet56/checkpoint/model_100.pt `
+    --job_dir ./experiments/resnet56_resume `
     --gpus 0
 ```
 
@@ -371,8 +371,8 @@ REM ImageNet配置（需要更多周期）
 **使用示例：**
 ```cmd
 REM 运行ABC搜索（会在日志中输出最优honey code）
-python bee_cifar.py ^
-    --honey_model ./pretrain/resnet56.pth ^
+python bee_cifar.py `
+    --honey_model ./pretrain/resnet56.pth `
     --job_dir ./exp1
 
 REM 查看搜索结果
@@ -380,16 +380,16 @@ findstr "Best Honey Source" ./exp1/logger.log
 REM 输出: Best Honey Source [5, 5, 5, 5, 5, 5, 5, 5, ...]
 
 REM 使用搜索到的配置直接剪枝（跳过搜索）
-python bee_cifar.py ^
-    --honey_model ./pretrain/resnet56.pth ^
-    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 ^
+python bee_cifar.py `
+    --honey_model ./pretrain/resnet56.pth `
+    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 `
     --job_dir ./exp2
 
 REM 测试已剪枝的模型
-python bee_cifar.py ^
-    --honey_model ./pretrain/resnet56.pth ^
-    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 ^
-    --best_honey_s ./exp1/checkpoint/bestmodel_after_bee.pt ^
+python bee_cifar.py `
+    --honey_model ./pretrain/resnet56.pth `
+    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 `
+    --best_honey_s ./exp1/checkpoint/bestmodel_after_bee.pt `
     --test_only
 ```
 
@@ -460,23 +460,23 @@ REM Step 2: 下载预训练模型（ResNet56）
 REM 从Google Drive下载到 pretrain\resnet56_cifar10.pth
 
 REM Step 3: 运行ABC算法搜索最优剪枝配置
-python bee_cifar.py ^
-    --data_set cifar10 ^
-    --data_path ./data ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
-    --honey_model ./pretrain/resnet56_cifar10.pth ^
-    --job_dir ./experiments/resnet56_abc ^
-    --gpus 0 ^
-    --num_epochs 150 ^
-    --lr 0.01 ^
-    --lr_decay_step 50 100 ^
-    --train_batch_size 128 ^
-    --calfitness_epoch 2 ^
-    --max_cycle 10 ^
-    --max_preserve 9 ^
-    --food_number 10 ^
-    --food_limit 5 ^
+python bee_cifar.py `
+    --data_set cifar10 `
+    --data_path ./data `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --honey_model ./pretrain/resnet56_cifar10.pth `
+    --job_dir ./experiments/resnet56_abc `
+    --gpus 0 `
+    --num_epochs 150 `
+    --lr 0.01 `
+    --lr_decay_step 50 100 `
+    --train_batch_size 128 `
+    --calfitness_epoch 2 `
+    --max_cycle 10 `
+    --max_preserve 9 `
+    --food_number 10 `
+    --food_limit 5 `
     --random_rule l1_pretrain
 
 REM Step 4: 查看搜索到的最优配置
@@ -484,23 +484,23 @@ findstr "Best Honey Source" ./experiments/resnet56_abc/logger.log
 REM 假设输出: Best Honey Source [5, 5, 5, 5, 5, 5, 5, ...]
 
 REM Step 5: 计算剪枝后的FLOPs和参数量
-python get_flops_params.py ^
-    --data_set cifar10 ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
+python get_flops_params.py `
+    --data_set cifar10 `
+    --arch resnet_cifar `
+    --cfg resnet56 `
     --honey "5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5"
 
 REM Step 6: 测试最终模型
-python bee_cifar.py ^
-    --data_set cifar10 ^
-    --data_path ./data ^
-    --arch resnet_cifar ^
-    --cfg resnet56 ^
-    --honey_model ./pretrain/resnet56_cifar10.pth ^
-    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 ^
-    --best_honey_s ./experiments/resnet56_abc/checkpoint/bestmodel_after_bee.pt ^
-    --job_dir ./experiments/resnet56_test ^
-    --test_only ^
+python bee_cifar.py `
+    --data_set cifar10 `
+    --data_path ./data `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --honey_model ./pretrain/resnet56_cifar10.pth `
+    --best_honey 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 5 `
+    --best_honey_s ./experiments/resnet56_abc/checkpoint/bestmodel_after_bee.pt `
+    --job_dir ./experiments/resnet56_test `
+    --test_only `
     --gpus 0
 ```
 
@@ -508,21 +508,21 @@ python bee_cifar.py ^
 
 ```cmd
 REM 使用较小的搜索周期快速测试
-python bee_imagenet.py ^
-    --data_path D:\data\ImageNet2012 ^
-    --honey_model ./pretrain/resnet18.pth ^
-    --job_dir ./experiments/resnet18_quick ^
-    --arch resnet ^
-    --cfg resnet18 ^
-    --gpus 0 ^
-    --num_epochs 90 ^
-    --lr 0.01 ^
-    --lr_decay_step 30 60 ^
-    --train_batch_size 256 ^
-    --calfitness_epoch 1 ^
-    --max_cycle 10 ^
-    --food_number 5 ^
-    --random_rule random_pretrain ^
+python bee_imagenet.py `
+    --data_path D:\data\ImageNet2012 `
+    --honey_model ./pretrain/resnet18.pth `
+    --job_dir ./experiments/resnet18_quick `
+    --arch resnet `
+    --cfg resnet18 `
+    --gpus 0 `
+    --num_epochs 90 `
+    --lr 0.01 `
+    --lr_decay_step 30 60 `
+    --train_batch_size 256 `
+    --calfitness_epoch 1 `
+    --max_cycle 10 `
+    --food_number 5 `
+    --random_rule random_pretrain `
     --warm_up
 ```
 

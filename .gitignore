@@ -1,1 +1,9 @@
 **/__pycache__/
+
+# Ignore all files in data directory
+data/*
+
+# But track Python files in data directory
+!data/**/*.py
+
+experiments/*
