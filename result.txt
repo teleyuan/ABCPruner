@@ -185,4 +185,417 @@ Cycle Time: 1593.21s
     Onlooker Bee [5/10] selected source 5... No improvement. [43.0s]
     Onlooker Bee [6/10] selected source 6... No improvement. [56.8s]
     Onlooker Bee [7/10] selected source 7... No improvement. [76.0s]
-    Onlooker Bee [8/10] selected source 8... 
+    Onlooker Bee [8/10] selected source 8... No improvement. [45.1s]
+    Onlooker Bee [9/10] selected source 9... No improvement. [67.1s]
+    Onlooker Bee [10/10] selected source 10... No improvement. [74.3s]
+
+==> Sending Scout Bee: Abandoning food source 1 (trail=5)
+    New random code: [1, 6, 6, 3, 3, 1, 1, 4, 8, 8, 6, 5, 3, 3, 8, 5, 1, 1, 8, 2, 3, 4, 2, 4, 7, 2, 5]
+    Calculating fitness...
+    New fitness: 68.39% [41.8s]
+
+================================================================================
+SEARCH CYCLE [4/10]
+Current Best Fitness: 85.19%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1479.16s
+================================================================================
+12/21 09:07:59 PM | Search Cycle [3]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.19%        Time 1479.16s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... Improved! 71.97% (↑3.58%) [42.0s]
+    Employed Bee [2/10] searching... No improvement. Keep 85.19% (trail=5) [43.2s]
+    Employed Bee [3/10] searching... No improvement. Keep 83.78% (trail=3) [42.2s]
+    Employed Bee [4/10] searching... No improvement. Keep 83.06% (trail=6) [42.2s]
+    Employed Bee [5/10] searching... No improvement. Keep 82.90% (trail=6) [49.8s]
+    Employed Bee [6/10] searching... No improvement. Keep 82.50% (trail=5) [49.3s]
+    Employed Bee [7/10] searching... No improvement. Keep 79.90% (trail=3) [50.5s]
+    Employed Bee [8/10] searching... No improvement. Keep 82.23% (trail=6) [51.0s]
+    Employed Bee [9/10] searching... No improvement. Keep 84.76% (trail=6) [54.3s]
+    Employed Bee [10/10] searching... Improved! 84.05% (↑0.25%) [52.3s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [48.3s]
+    Onlooker Bee [2/10] selected source 2... No improvement. [57.9s]
+    Onlooker Bee [3/10] selected source 3... No improvement. [47.5s]
+    Onlooker Bee [4/10] selected source 4... No improvement. [65.4s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [84.1s]
+    Onlooker Bee [6/10] selected source 6... Improved! 82.70% [101.5s]
+    Onlooker Bee [7/10] selected source 7... No improvement. [61.3s]
+    Onlooker Bee [8/10] selected source 8... No improvement. [42.4s]
+    Onlooker Bee [9/10] selected source 9... No improvement. [42.4s]
+    Onlooker Bee [10/10] selected source 10... Improved! 84.54% [42.6s]
+
+==> Sending Scout Bee: Abandoning food source 4 (trail=7)
+    New random code: [5, 1, 2, 7, 6, 6, 8, 5, 8, 4, 1, 4, 3, 6, 3, 1, 2, 3, 6, 8, 5, 1, 8, 2, 3, 4, 7]
+    Calculating fitness...
+    New fitness: 76.46% [42.0s]
+
+================================================================================
+SEARCH CYCLE [5/10]
+Current Best Fitness: 85.19%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1112.03s
+================================================================================
+12/21 09:26:31 PM | Search Cycle [4]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.19%        Time 1112.03s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... No improvement. Keep 71.97% (trail=2) [41.0s]
+    Employed Bee [2/10] searching... No improvement. Keep 85.19% (trail=7) [53.8s]
+    Employed Bee [3/10] searching... No improvement. Keep 83.78% (trail=5) [49.2s]
+    Employed Bee [4/10] searching... Improved! 79.61% (↑3.15%) [50.2s]
+    Employed Bee [5/10] searching... Improved! 83.43% (↑0.53%) [52.3s]
+    Employed Bee [6/10] searching... No improvement. Keep 82.70% (trail=1) [54.2s]
+    Employed Bee [7/10] searching... No improvement. Keep 79.90% (trail=5) [50.7s]
+    Employed Bee [8/10] searching... No improvement. Keep 82.23% (trail=8) [51.9s]
+    Employed Bee [9/10] searching... No improvement. Keep 84.76% (trail=8) [51.0s]
+    Employed Bee [10/10] searching... Improved! 85.42% (↑0.88%) [50.3s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 2... Improved! 85.58% [49.9s]
+    Onlooker Bee [2/10] selected source 4... Improved! 80.07% [50.6s]
+    Onlooker Bee [3/10] selected source 5... Improved! 83.69% [50.1s]
+    Onlooker Bee [4/10] selected source 6... No improvement. [52.1s]
+    Onlooker Bee [5/10] selected source 7... No improvement. [49.1s]
+    Onlooker Bee [6/10] selected source 9... No improvement. [49.7s]
+    Onlooker Bee [7/10] selected source 10... No improvement. [50.1s]
+    Onlooker Bee [8/10] selected source 1... Improved! 74.98% [50.4s]
+    Onlooker Bee [9/10] selected source 2... No improvement. [51.0s]
+    Onlooker Bee [10/10] selected source 3... No improvement. [53.9s]
+
+==> Sending Scout Bee: Abandoning food source 9 (trail=9)
+    New random code: [1, 4, 6, 5, 1, 7, 1, 1, 3, 4, 4, 2, 6, 6, 3, 8, 3, 8, 1, 2, 3, 6, 6, 8, 1, 3, 6]
+    Calculating fitness...
+    New fitness: 71.32% [50.2s]
+
+================================================================================
+SEARCH CYCLE [6/10]
+Current Best Fitness: 85.58%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1061.78s
+================================================================================
+12/21 09:44:13 PM | Search Cycle [5]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.58%        Time 1061.78s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... No improvement. Keep 74.98% (trail=1) [50.2s]
+    Employed Bee [2/10] searching... No improvement. Keep 85.58% (trail=2) [52.2s]
+    Employed Bee [3/10] searching... No improvement. Keep 83.78% (trail=7) [51.5s]
+    Employed Bee [4/10] searching... No improvement. Keep 80.07% (trail=1) [53.6s]
+    Employed Bee [5/10] searching... No improvement. Keep 83.69% (trail=1) [52.1s]
+    Employed Bee [6/10] searching... No improvement. Keep 82.70% (trail=3) [51.2s]
+    Employed Bee [7/10] searching... No improvement. Keep 79.90% (trail=7) [48.7s]
+    Employed Bee [8/10] searching... No improvement. Keep 82.23% (trail=9) [51.0s]
+    Employed Bee [9/10] searching... No improvement. Keep 71.32% (trail=1) [48.5s]
+    Employed Bee [10/10] searching... No improvement. Keep 85.42% (trail=2) [52.4s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [50.2s]
+    Onlooker Bee [2/10] selected source 2... No improvement. [55.0s]
+    Onlooker Bee [3/10] selected source 3... No improvement. [51.7s]
+    Onlooker Bee [4/10] selected source 4... Improved! 81.31% [51.4s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [50.7s]
+    Onlooker Bee [6/10] selected source 6... No improvement. [52.6s]
+    Onlooker Bee [7/10] selected source 7... No improvement. [49.5s]
+    Onlooker Bee [8/10] selected source 8... No improvement. [51.1s]
+    Onlooker Bee [9/10] selected source 9... No improvement. [49.7s]
+    Onlooker Bee [10/10] selected source 10... No improvement. [53.8s]
+
+==> Sending Scout Bee: Abandoning food source 8 (trail=10)
+    New random code: [6, 6, 4, 1, 5, 6, 6, 5, 6, 3, 2, 1, 2, 4, 6, 2, 7, 4, 6, 2, 8, 7, 3, 7, 8, 1, 3]
+    Calculating fitness...
+    New fitness: 80.27% [51.1s]
+
+================================================================================
+SEARCH CYCLE [7/10]
+Current Best Fitness: 85.58%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1078.09s
+================================================================================
+12/21 10:02:11 PM | Search Cycle [6]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.58%        Time 1078.09s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... Improved! 75.79% (↑0.81%) [51.0s]
+    Employed Bee [2/10] searching... No improvement. Keep 85.58% (trail=4) [52.4s]
+    Employed Bee [3/10] searching... No improvement. Keep 83.78% (trail=9) [49.5s]
+    Employed Bee [4/10] searching... No improvement. Keep 81.31% (trail=1) [48.3s]
+    Employed Bee [5/10] searching... No improvement. Keep 83.69% (trail=3) [49.6s]
+    Employed Bee [6/10] searching... Improved! 83.41% (↑0.71%) [51.8s]
+    Employed Bee [7/10] searching... Improved! 80.80% (↑0.90%) [50.9s]
+    Employed Bee [8/10] searching... Improved! 81.31% (↑1.04%) [51.6s]
+    Employed Bee [9/10] searching... Improved! 72.86% (↑1.54%) [49.4s]
+    Employed Bee [10/10] searching... No improvement. Keep 85.42% (trail=4) [50.0s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [52.2s]
+    Onlooker Bee [2/10] selected source 2... No improvement. [51.3s]
+    Onlooker Bee [3/10] selected source 3... Improved! 84.54% [50.4s]
+    Onlooker Bee [4/10] selected source 4... No improvement. [49.3s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [50.8s]
+    Onlooker Bee [6/10] selected source 6... No improvement. [51.7s]
+    Onlooker Bee [7/10] selected source 7... No improvement. [51.2s]
+    Onlooker Bee [8/10] selected source 8... No improvement. [50.8s]
+    Onlooker Bee [9/10] selected source 9... No improvement. [48.7s]
+    Onlooker Bee [10/10] selected source 10... No improvement. [51.1s]
+
+==> Sending Scout Bee: Abandoning food source 2 (trail=5)
+    New random code: [2, 6, 2, 1, 1, 6, 3, 3, 2, 5, 1, 5, 8, 8, 4, 4, 8, 1, 2, 6, 3, 1, 1, 3, 4, 7, 7]
+    Calculating fitness...
+    New fitness: 72.46% [50.2s]
+
+================================================================================
+SEARCH CYCLE [8/10]
+Current Best Fitness: 85.58%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1062.03s
+================================================================================
+12/21 10:19:53 PM | Search Cycle [7]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.58%        Time 1062.03s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... No improvement. Keep 75.79% (trail=2) [52.7s]
+    Employed Bee [2/10] searching... No improvement. Keep 72.46% (trail=1) [50.1s]
+    Employed Bee [3/10] searching... No improvement. Keep 84.54% (trail=1) [50.7s]
+    Employed Bee [4/10] searching... No improvement. Keep 81.31% (trail=3) [52.0s]
+    Employed Bee [5/10] searching... No improvement. Keep 83.69% (trail=5) [49.5s]
+    Employed Bee [6/10] searching... No improvement. Keep 83.41% (trail=2) [50.7s]
+    Employed Bee [7/10] searching... No improvement. Keep 80.80% (trail=2) [49.3s]
+    Employed Bee [8/10] searching... Improved! 81.44% (↑0.13%) [50.2s]
+    Employed Bee [9/10] searching... No improvement. Keep 72.86% (trail=2) [50.4s]
+    Employed Bee [10/10] searching... No improvement. Keep 85.42% (trail=6) [52.6s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [49.8s]
+    Onlooker Bee [2/10] selected source 2... No improvement. [49.8s]
+    Onlooker Bee [3/10] selected source 3... No improvement. [52.3s]
+    Onlooker Bee [4/10] selected source 4... Improved! 81.50% [49.8s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [49.6s]
+    Onlooker Bee [6/10] selected source 7... No improvement. [49.0s]
+    Onlooker Bee [7/10] selected source 8... No improvement. [49.3s]
+    Onlooker Bee [8/10] selected source 9... No improvement. [48.2s]
+    Onlooker Bee [9/10] selected source 10... No improvement. [44.7s]
+    Onlooker Bee [10/10] selected source 1... No improvement. [42.0s]
+
+==> Sending Scout Bee: Abandoning food source 10 (trail=7)
+    New random code: [6, 8, 8, 4, 6, 7, 1, 2, 6, 4, 8, 7, 8, 3, 8, 5, 3, 4, 8, 1, 4, 6, 1, 1, 6, 3, 5]
+    Calculating fitness...
+    New fitness: 80.87% [42.9s]
+
+================================================================================
+SEARCH CYCLE [9/10]
+Current Best Fitness: 85.58%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1035.60s
+================================================================================
+12/21 10:37:09 PM | Search Cycle [8]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.58%        Time 1035.60s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... Improved! 77.50% (↑1.71%) [41.8s]
+    Employed Bee [2/10] searching... No improvement. Keep 72.46% (trail=3) [41.2s]
+    Employed Bee [3/10] searching... No improvement. Keep 84.54% (trail=3) [43.0s]
+    Employed Bee [4/10] searching... No improvement. Keep 81.50% (trail=1) [49.8s]
+    Employed Bee [5/10] searching... No improvement. Keep 83.69% (trail=7) [50.9s]
+    Employed Bee [6/10] searching... No improvement. Keep 83.41% (trail=3) [50.3s]
+    Employed Bee [7/10] searching... No improvement. Keep 80.80% (trail=4) [49.4s]
+    Employed Bee [8/10] searching... No improvement. Keep 81.44% (trail=2) [51.2s]
+    Employed Bee [9/10] searching... No improvement. Keep 72.86% (trail=4) [48.1s]
+    Employed Bee [10/10] searching... No improvement. Keep 80.87% (trail=1) [50.6s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [52.3s]
+    Onlooker Bee [2/10] selected source 2... Improved! 74.34% [49.6s]
+    Onlooker Bee [3/10] selected source 3... No improvement. [51.6s]
+    Onlooker Bee [4/10] selected source 4... No improvement. [48.1s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [50.7s]
+    Onlooker Bee [6/10] selected source 6... No improvement. [49.0s]
+    Onlooker Bee [7/10] selected source 7... No improvement. [49.5s]
+    Onlooker Bee [8/10] selected source 8... No improvement. [53.3s]
+    Onlooker Bee [9/10] selected source 10... Improved! 80.90% [49.7s]
+    Onlooker Bee [10/10] selected source 1... No improvement. [48.4s]
+
+==> Sending Scout Bee: Abandoning food source 5 (trail=8)
+    New random code: [1, 5, 4, 3, 5, 8, 1, 8, 6, 6, 3, 5, 7, 8, 8, 1, 1, 7, 5, 2, 6, 2, 2, 2, 5, 1, 3]
+    Calculating fitness...
+    New fitness: 78.82% [48.6s]
+
+================================================================================
+SEARCH CYCLE [10/10]
+Current Best Fitness: 85.58%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1027.30s
+================================================================================
+12/21 10:54:16 PM | Search Cycle [9]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.58%        Time 1027.30s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... Improved! 78.48% (↑0.98%) [49.6s]
+    Employed Bee [2/10] searching... Improved! 75.59% (↑1.25%) [48.9s]
+    Employed Bee [3/10] searching... No improvement. Keep 84.54% (trail=5) [48.0s]
+    Employed Bee [4/10] searching... No improvement. Keep 81.50% (trail=3) [48.2s]
+    Employed Bee [5/10] searching... No improvement. Keep 78.82% (trail=1) [50.1s]
+    Employed Bee [6/10] searching... No improvement. Keep 83.41% (trail=5) [48.7s]
+    Employed Bee [7/10] searching... No improvement. Keep 80.80% (trail=6) [50.7s]
+    Employed Bee [8/10] searching... Improved! 81.52% (↑0.08%) [50.6s]
+    Employed Bee [9/10] searching... No improvement. Keep 72.86% (trail=5) [49.6s]
+    Employed Bee [10/10] searching... Improved! 82.78% (↑1.88%) [53.0s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [52.2s]
+    Onlooker Bee [2/10] selected source 3... No improvement. [51.8s]
+    Onlooker Bee [3/10] selected source 4... No improvement. [52.2s]
+    Onlooker Bee [4/10] selected source 5... No improvement. [51.8s]
+    Onlooker Bee [5/10] selected source 6... No improvement. [49.8s]
+    Onlooker Bee [6/10] selected source 7... No improvement. [49.9s]
+    Onlooker Bee [7/10] selected source 8... No improvement. [50.4s]
+    Onlooker Bee [8/10] selected source 9... No improvement. [49.2s]
+    Onlooker Bee [9/10] selected source 10... No improvement. [51.5s]
+    Onlooker Bee [10/10] selected source 1... No improvement. [51.6s]
+
+==> Sending Scout Bee: Abandoning food source 7 (trail=7)
+    New random code: [3, 8, 8, 7, 1, 3, 4, 6, 1, 3, 3, 4, 4, 4, 4, 7, 1, 4, 5, 1, 7, 2, 5, 4, 6, 4, 3]
+    Calculating fitness...
+    New fitness: 79.72% [52.4s]
+==> BeePruning Complete!
+12/21 11:11:56 PM | Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 6, 6, 5, 3, 9, 2, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6] Best Honey Source fitness 85.58%        Time Used12166.59s
+
+==> Building model..
+l1_pretrain Done!
+12/21 11:12:05 PM | Epoch[0] (4992/50000):      Loss 0.3484     Accurary 87.91%         Time 8.15s
+12/21 11:12:06 PM | Epoch[0] (9984/50000):      Loss 0.3449     Accurary 88.17%         Time 1.48s
+12/21 11:12:08 PM | Epoch[0] (14976/50000):     Loss 0.3472     Accurary 88.00%         Time 1.48s
+12/21 11:12:09 PM | Epoch[0] (19968/50000):     Loss 0.3469     Accurary 87.93%         Time 1.52s
+12/21 11:12:11 PM | Epoch[0] (24960/50000):     Loss 0.3440     Accurary 88.08%         Time 1.71s
+12/21 11:12:12 PM | Epoch[0] (29952/50000):     Loss 0.3449     Accurary 88.11%         Time 1.39s
+12/21 11:12:14 PM | Epoch[0] (34944/50000):     Loss 0.3408     Accurary 88.20%         Time 1.36s
+12/21 11:12:15 PM | Epoch[0] (39936/50000):     Loss 0.3384     Accurary 88.29%         Time 1.46s
+12/21 11:12:16 PM | Epoch[0] (44928/50000):     Loss 0.3347     Accurary 88.43%         Time 1.38s
+12/21 11:12:18 PM | Epoch[0] (49920/50000):     Loss 0.3341     Accurary 88.41%         Time 1.37s
+12/21 11:12:26 PM | Test Loss 0.4064    Accurary 87.36%         Time 7.35s
+
+12/21 11:12:34 PM | Epoch[1] (4992/50000):      Loss 0.2778     Accurary 90.14%         Time 8.36s
+12/21 11:12:35 PM | Epoch[1] (9984/50000):      Loss 0.2807     Accurary 89.90%         Time 1.32s
+12/21 11:12:37 PM | Epoch[1] (14976/50000):     Loss 0.2819     Accurary 90.13%         Time 1.25s
+12/21 11:12:38 PM | Epoch[1] (19968/50000):     Loss 0.2798     Accurary 90.12%         Time 1.45s
+12/21 11:12:39 PM | Epoch[1] (24960/50000):     Loss 0.2774     Accurary 90.19%         Time 1.45s
+12/21 11:12:41 PM | Epoch[1] (29952/50000):     Loss 0.2759     Accurary 90.28%         Time 1.27s
+12/21 11:12:42 PM | Epoch[1] (34944/50000):     Loss 0.2754     Accurary 90.31%         Time 1.37s
+12/21 11:12:43 PM | Epoch[1] (39936/50000):     Loss 0.2769     Accurary 90.24%         Time 1.37s
+12/21 11:12:45 PM | Epoch[1] (44928/50000):     Loss 0.2772     Accurary 90.23%         Time 1.41s
+12/21 11:12:46 PM | Epoch[1] (49920/50000):     Loss 0.2760     Accurary 90.32%         Time 1.47s
+12/21 11:12:54 PM | Test Loss 0.3840    Accurary 88.03%         Time 7.29s
+
+12/21 11:13:03 PM | Epoch[2] (4992/50000):      Loss 0.2254     Accurary 91.70%         Time 8.66s
+12/21 11:13:04 PM | Epoch[2] (9984/50000):      Loss 0.2305     Accurary 92.04%         Time 1.33s
+12/21 11:13:06 PM | Epoch[2] (14976/50000):     Loss 0.2298     Accurary 91.94%         Time 1.33s
+12/21 11:13:07 PM | Epoch[2] (19968/50000):     Loss 0.2307     Accurary 91.96%         Time 1.35s
+12/21 11:13:08 PM | Epoch[2] (24960/50000):     Loss 0.2303     Accurary 91.91%         Time 1.40s
+12/21 11:13:10 PM | Epoch[2] (29952/50000):     Loss 0.2325     Accurary 91.78%         Time 1.42s
+12/21 11:13:11 PM | Epoch[2] (34944/50000):     Loss 0.2322     Accurary 91.79%         Time 1.46s
+12/21 11:13:13 PM | Epoch[2] (39936/50000):     Loss 0.2375     Accurary 91.63%         Time 1.62s
+12/21 11:13:14 PM | Epoch[2] (44928/50000):     Loss 0.2375     Accurary 91.67%         Time 1.57s
+12/21 11:13:16 PM | Epoch[2] (49920/50000):     Loss 0.2370     Accurary 91.70%         Time 1.52s
+12/21 11:13:24 PM | Test Loss 0.3987    Accurary 87.82%         Time 7.31s
+
+12/21 11:13:32 PM | Epoch[3] (4992/50000):      Loss 0.1960     Accurary 93.65%         Time 8.63s
+12/21 11:13:34 PM | Epoch[3] (9984/50000):      Loss 0.2007     Accurary 93.14%         Time 1.45s
+12/21 11:13:35 PM | Epoch[3] (14976/50000):     Loss 0.2060     Accurary 92.89%         Time 1.39s
+12/21 11:13:36 PM | Epoch[3] (19968/50000):     Loss 0.2092     Accurary 92.78%         Time 1.36s
+12/21 11:13:38 PM | Epoch[3] (24960/50000):     Loss 0.2090     Accurary 92.79%         Time 1.49s
+12/21 11:13:39 PM | Epoch[3] (29952/50000):     Loss 0.2088     Accurary 92.79%         Time 1.33s
+12/21 11:13:41 PM | Epoch[3] (34944/50000):     Loss 0.2117     Accurary 92.69%         Time 1.43s
+12/21 11:13:42 PM | Epoch[3] (39936/50000):     Loss 0.2130     Accurary 92.62%         Time 1.38s
+12/21 11:13:43 PM | Epoch[3] (44928/50000):     Loss 0.2122     Accurary 92.62%         Time 1.44s
+12/21 11:13:45 PM | Epoch[3] (49920/50000):     Loss 0.2122     Accurary 92.62%         Time 1.57s
+12/21 11:13:53 PM | Test Loss 0.4045    Accurary 87.79%         Time 7.53s
+
+12/21 11:14:02 PM | Epoch[4] (4992/50000):      Loss 0.1865     Accurary 93.36%         Time 8.69s
+12/21 11:14:03 PM | Epoch[4] (9984/50000):      Loss 0.1883     Accurary 93.34%         Time 1.37s
+12/21 11:14:04 PM | Epoch[4] (14976/50000):     Loss 0.1918     Accurary 93.25%         Time 1.36s
+12/21 11:14:06 PM | Epoch[4] (19968/50000):     Loss 0.1895     Accurary 93.33%         Time 1.40s
+12/21 11:14:07 PM | Epoch[4] (24960/50000):     Loss 0.1929     Accurary 93.28%         Time 1.47s
+12/21 11:14:09 PM | Epoch[4] (29952/50000):     Loss 0.1944     Accurary 93.29%         Time 1.52s
+12/21 11:14:10 PM | Epoch[4] (34944/50000):     Loss 0.1947     Accurary 93.30%         Time 1.46s
+12/21 11:14:12 PM | Epoch[4] (39936/50000):     Loss 0.1966     Accurary 93.25%         Time 1.64s
+12/21 11:14:14 PM | Epoch[4] (44928/50000):     Loss 0.1969     Accurary 93.22%         Time 1.69s
+12/21 11:14:15 PM | Epoch[4] (49920/50000):     Loss 0.1962     Accurary 93.21%         Time 1.45s
+12/21 11:14:23 PM | Test Loss 0.3620    Accurary 89.11%         Time 7.18s
+
+12/21 11:14:32 PM | Epoch[5] (4992/50000):      Loss 0.1497     Accurary 94.86%         Time 9.04s
+12/21 11:14:33 PM | Epoch[5] (9984/50000):      Loss 0.1500     Accurary 94.65%         Time 1.47s
+12/21 11:14:35 PM | Epoch[5] (14976/50000):     Loss 0.1530     Accurary 94.49%         Time 1.38s
+12/21 11:14:36 PM | Epoch[5] (19968/50000):     Loss 0.1580     Accurary 94.41%         Time 1.47s
+12/21 11:14:37 PM | Epoch[5] (24960/50000):     Loss 0.1594     Accurary 94.27%         Time 1.34s
+12/21 11:14:39 PM | Epoch[5] (29952/50000):     Loss 0.1640     Accurary 94.17%         Time 1.43s
+12/21 11:14:40 PM | Epoch[5] (34944/50000):     Loss 0.1675     Accurary 94.03%         Time 1.63s
+12/21 11:14:42 PM | Epoch[5] (39936/50000):     Loss 0.1710     Accurary 93.87%         Time 1.48s
+12/21 11:14:43 PM | Epoch[5] (44928/50000):     Loss 0.1708     Accurary 93.88%         Time 1.46s
+12/21 11:14:45 PM | Epoch[5] (49920/50000):     Loss 0.1724     Accurary 93.83%         Time 1.35s
+12/21 11:14:53 PM | Test Loss 0.3512    Accurary 89.20%         Time 7.96s
+
+12/21 11:15:02 PM | Epoch[6] (4992/50000):      Loss 0.1730     Accurary 93.91%         Time 8.83s
+12/21 11:15:03 PM | Epoch[6] (9984/50000):      Loss 0.1740     Accurary 93.98%         Time 1.33s
+12/21 11:15:05 PM | Epoch[6] (14976/50000):     Loss 0.1704     Accurary 94.21%         Time 1.42s
+12/21 11:15:06 PM | Epoch[6] (19968/50000):     Loss 0.1686     Accurary 94.20%         Time 1.45s
+12/21 11:15:08 PM | Epoch[6] (24960/50000):     Loss 0.1672     Accurary 94.24%         Time 1.38s
+12/21 11:15:09 PM | Epoch[6] (29952/50000):     Loss 0.1662     Accurary 94.24%         Time 1.47s
+12/21 11:15:11 PM | Epoch[6] (34944/50000):     Loss 0.1673     Accurary 94.17%         Time 1.45s
+12/21 11:15:12 PM | Epoch[6] (39936/50000):     Loss 0.1670     Accurary 94.21%         Time 1.57s
+12/21 11:15:14 PM | Epoch[6] (44928/50000):     Loss 0.1667     Accurary 94.19%         Time 1.70s
+12/21 11:15:15 PM | Epoch[6] (49920/50000):     Loss 0.1706     Accurary 94.07%         Time 1.44s
+12/21 11:15:23 PM | Test Loss 0.3958    Accurary 88.26%         Time 7.53s
+
+12/21 11:15:34 PM | Epoch[7] (4992/50000):      Loss 0.1550     Accurary 94.67%         Time 10.36s
+12/21 11:15:35 PM | Epoch[7] (9984/50000):      Loss 0.1482     Accurary 94.77%         Time 1.48s
+12/21 11:15:36 PM | Epoch[7] (14976/50000):     Loss 0.1477     Accurary 94.72%         Time 1.45s
+12/21 11:15:38 PM | Epoch[7] (19968/50000):     Loss 0.1448     Accurary 94.81%         Time 1.39s
+12/21 11:15:39 PM | Epoch[7] (24960/50000):     Loss 0.1456     Accurary 94.80%         Time 1.44s
+12/21 11:15:41 PM | Epoch[7] (29952/50000):     Loss 0.1451     Accurary 94.83%         Time 1.44s
+12/21 11:15:42 PM | Epoch[7] (34944/50000):     Loss 0.1466     Accurary 94.79%         Time 1.44s
+12/21 11:15:44 PM | Epoch[7] (39936/50000):     Loss 0.1461     Accurary 94.84%         Time 1.37s
+12/21 11:15:45 PM | Epoch[7] (44928/50000):     Loss 0.1480     Accurary 94.78%         Time 1.50s
+12/21 11:15:46 PM | Epoch[7] (49920/50000):     Loss 0.1485     Accurary 94.77%         Time 1.35s
+12/21 11:15:54 PM | Test Loss 0.3639    Accurary 89.64%         Time 7.39s
+
+12/21 11:16:04 PM | Epoch[8] (4992/50000):      Loss 0.1363     Accurary 95.12%         Time 9.66s
+12/21 11:16:05 PM | Epoch[8] (9984/50000):      Loss 0.1414     Accurary 94.82%         Time 1.45s
+12/21 11:16:07 PM | Epoch[8] (14976/50000):     Loss 0.1444     Accurary 94.71%         Time 1.31s
+12/21 11:16:08 PM | Epoch[8] (19968/50000):     Loss 0.1439     Accurary 94.77%         Time 1.42s
+12/21 11:16:09 PM | Epoch[8] (24960/50000):     Loss 0.1441     Accurary 94.71%         Time 1.34s
+12/21 11:16:11 PM | Epoch[8] (29952/50000):     Loss 0.1429     Accurary 94.73%         Time 1.29s
+12/21 11:16:12 PM | Epoch[8] (34944/50000):     Loss 0.1435     Accurary 94.75%         Time 1.47s
+12/21 11:16:14 PM | Epoch[8] (39936/50000):     Loss 0.1433     Accurary 94.76%         Time 1.48s
+12/21 11:16:15 PM | Epoch[8] (44928/50000):     Loss 0.1440     Accurary 94.74%         Time 1.40s
+12/21 11:16:16 PM | Epoch[8] (49920/50000):     Loss 0.1447     Accurary 94.74%         Time 1.32s
+12/21 11:16:24 PM | Test Loss 0.3395    Accurary 90.25%         Time 7.17s
+
+12/21 11:16:34 PM | Epoch[9] (4992/50000):      Loss 0.1117     Accurary 96.19%         Time 9.61s
+12/21 11:16:35 PM | Epoch[9] (9984/50000):      Loss 0.1206     Accurary 95.81%         Time 1.46s
+12/21 11:16:36 PM | Epoch[9] (14976/50000):     Loss 0.1214     Accurary 95.76%         Time 1.33s
+12/21 11:16:38 PM | Epoch[9] (19968/50000):     Loss 0.1238     Accurary 95.62%         Time 1.47s
+12/21 11:16:40 PM | Epoch[9] (24960/50000):     Loss 0.1238     Accurary 95.68%         Time 1.74s
+12/21 11:16:41 PM | Epoch[9] (29952/50000):     Loss 0.1245     Accurary 95.63%         Time 1.45s
+12/21 11:16:42 PM | Epoch[9] (34944/50000):     Loss 0.1270     Accurary 95.55%         Time 1.37s
+12/21 11:16:44 PM | Epoch[9] (39936/50000):     Loss 0.1275     Accurary 95.55%         Time 1.46s
+12/21 11:16:45 PM | Epoch[9] (44928/50000):     Loss 0.1271     Accurary 95.58%         Time 1.46s
+12/21 11:16:47 PM | Epoch[9] (49920/50000):     Loss 0.1284     Accurary 95.50%         Time 1.45s
+12/21 11:16:55 PM | Test Loss 0.4008    Accurary 89.24%         Time 8.10s
+
+12/21 11:16:55 PM | Best accurary: 90.250
