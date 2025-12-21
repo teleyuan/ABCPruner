@@ -1,0 +1,188 @@
+(pytorch) PS E:\模型压缩\ABCPruner> python bee_cifar.py ` 
+>>     --data_set cifar10 `
+>>     --data_path ./data `
+>>     --arch resnet_cifar `
+>>     --cfg resnet56 `
+>>     --honey_model ./pretrain/resnet56_cifar10.pth `
+>>     --job_dir ./experiments/resnet56_abc `
+>>     --gpus 0 `
+>>     --num_epochs 10 `
+>>     --lr 0.01 `
+>>     --lr_decay_step 50 100 `
+>>     --train_batch_size 128 `
+>>     --calfitness_epoch 2 `
+>>     --max_cycle 10 `
+>>     --max_preserve 9 `
+>>     --food_number 10 `
+>>     --food_limit 5 `
+>>     --random_rule l1_pretrain
+==> [19:48:38.073] Loading Data..
+Downloading https://www.cs.toronto.edu/~kriz/cifar-10-python.tar.gz to ./data\cifar-10-python.tar.gz
+100%|████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████| 170498071/170498071 [00:15<00:00, 11129865.05it/s]
+Extracting ./data\cifar-10-python.tar.gz to ./data
+Files already downloaded and verified
+==> [19:48:38.073] Loading Model..
+12/21 07:49:10 PM | Test Loss 0.2892    Accurary 93.26%         Time 7.16s
+
+==> Start BeePruning..
+==> Initilizing Honey_model..
+==> Total food sources to initialize: 10
+
+==> Initializing food source [1/10]
+    Generated code: [1, 2, 9, 2, 3, 7, 9, 2, 3, 5, 5, 3, 5, 7, 2, 2, 3, 5, 3, 2, 4, 3, 8, 8, 6, 4, 3]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 75.80% | Time: 44.32s
+
+==> Initializing food source [2/10]
+    Generated code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 2, 8, 7, 9, 9, 6, 3, 6]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 84.71% | Time: 44.63s
+
+==> Initializing food source [3/10]
+    Generated code: [8, 6, 9, 2, 4, 6, 9, 6, 6, 1, 8, 2, 6, 8, 8, 9, 9, 5, 4, 6, 1, 6, 7, 3, 1, 4, 9]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 76.14% | Time: 43.30s
+
+==> Initializing food source [4/10]
+    Generated code: [8, 1, 4, 5, 6, 4, 6, 6, 5, 2, 5, 8, 1, 3, 7, 2, 6, 4, 3, 4, 8, 3, 2, 8, 6, 5, 3]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 78.64% | Time: 42.99s
+
+==> Initializing food source [5/10]
+    Generated code: [5, 3, 8, 3, 1, 2, 1, 3, 6, 7, 9, 7, 2, 8, 7, 6, 9, 1, 5, 6, 3, 7, 1, 2, 9, 1, 7]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 81.10% | Time: 43.55s
+
+==> Initializing food source [6/10]
+    Generated code: [8, 5, 6, 5, 1, 1, 5, 5, 5, 7, 6, 9, 8, 2, 3, 5, 7, 6, 3, 4, 1, 2, 6, 8, 3, 2, 7]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 82.05% | Time: 48.14s
+
+==> Initializing food source [7/10]
+    Generated code: [3, 1, 1, 4, 7, 6, 2, 8, 8, 2, 5, 8, 1, 7, 8, 3, 5, 6, 8, 1, 1, 9, 3, 1, 8, 5, 5]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 75.58% | Time: 64.68s
+
+==> Initializing food source [8/10]
+    Generated code: [4, 3, 2, 2, 3, 2, 5, 6, 4, 5, 2, 9, 5, 7, 9, 7, 6, 3, 1, 2, 5, 9, 7, 4, 6, 4, 9]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 78.30% | Time: 73.15s
+
+==> Initializing food source [9/10]
+    Generated code: [1, 5, 2, 4, 5, 4, 2, 9, 3, 7, 6, 3, 6, 3, 9, 1, 9, 9, 8, 4, 4, 4, 6, 8, 7, 8, 6]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 78.38% | Time: 71.66s
+
+==> Initializing food source [10/10]
+    Generated code: [8, 8, 6, 3, 7, 9, 5, 5, 3, 1, 2, 9, 4, 7, 6, 9, 3, 9, 8, 4, 5, 5, 3, 6, 8, 6, 9]
+    Calculating fitness (training for 2 epochs)...
+    Fitness: 83.57% | Time: 61.60s
+
+==> Initialization complete!
+==> Initial best fitness: 75.80%
+
+================================================================================
+SEARCH CYCLE [1/10]
+Current Best Fitness: 75.80%
+Current Best Code: [1, 2, 9, 2, 3, 7, 9, 2, 3, 5, 5, 3, 5, 7, 2, 2, 3, 5, 3, 2, 4, 3, 8, 8, 6, 4, 3]
+================================================================================
+12/21 07:58:08 PM | Search Cycle [0]     Best Honey Source [1, 2, 9, 2, 3, 7, 9, 2, 3, 5, 5, 3, 5, 7, 2, 2, 3, 5, 3, 2, 4, 3, 8, 8, 6, 4, 3]    Best Honey Source fitness 75.80%        Time 0.00s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... Improved! 78.55% (↑2.75%) [48.8s]
+    Employed Bee [2/10] searching... No improvement. Keep 84.71% (trail=1) [58.8s]
+    Employed Bee [3/10] searching... Improved! 79.71% (↑3.57%) [111.1s]
+    Employed Bee [4/10] searching... Improved! 83.06% (↑4.42%) [66.9s]
+    Employed Bee [5/10] searching... Improved! 82.90% (↑1.80%) [50.7s]
+    Employed Bee [6/10] searching... No improvement. Keep 82.05% (trail=1) [51.9s]
+    Employed Bee [7/10] searching... No improvement. Keep 75.58% (trail=1) [50.9s]
+    Employed Bee [8/10] searching... Improved! 82.23% (↑3.93%) [52.8s]
+    Employed Bee [9/10] searching... Improved! 84.76% (↑6.38%) [53.2s]
+    Employed Bee [10/10] searching... No improvement. Keep 83.57% (trail=1) [52.9s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [54.1s]
+    Onlooker Bee [2/10] selected source 2... Improved! 85.19% [51.8s]
+    Onlooker Bee [3/10] selected source 3... Improved! 81.29% [51.4s]
+    Onlooker Bee [4/10] selected source 4... No improvement. [53.2s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [52.6s]
+    Onlooker Bee [6/10] selected source 6... Improved! 82.50% [52.2s]
+    Onlooker Bee [7/10] selected source 7... No improvement. [49.5s]
+    Onlooker Bee [8/10] selected source 8... No improvement. [51.4s]
+    Onlooker Bee [9/10] selected source 9... No improvement. [51.9s]
+    Onlooker Bee [10/10] selected source 10... No improvement. [52.8s]
+
+==> Scout Bee: No food source to abandon (max trail=2/5)
+
+================================================================================
+SEARCH CYCLE [2/10]
+Current Best Fitness: 85.19%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1118.99s
+================================================================================
+12/21 08:16:47 PM | Search Cycle [1]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.19%        Time 1118.99s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... No improvement. Keep 78.55% (trail=2) [49.7s]
+    Employed Bee [2/10] searching... No improvement. Keep 85.19% (trail=1) [52.6s]
+    Employed Bee [3/10] searching... Improved! 83.29% (↑2.00%) [50.9s]
+    Employed Bee [4/10] searching... No improvement. Keep 83.06% (trail=2) [50.3s]
+    Employed Bee [5/10] searching... No improvement. Keep 82.90% (trail=2) [51.2s]
+    Employed Bee [6/10] searching... No improvement. Keep 82.50% (trail=1) [50.5s]
+    Employed Bee [7/10] searching... Improved! 79.57% (↑3.99%) [50.0s]
+    Employed Bee [8/10] searching... No improvement. Keep 82.23% (trail=2) [54.5s]
+    Employed Bee [9/10] searching... No improvement. Keep 84.76% (trail=2) [67.4s]
+    Employed Bee [10/10] searching... No improvement. Keep 83.57% (trail=3) [101.7s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [94.3s]
+    Onlooker Bee [2/10] selected source 2... No improvement. [104.4s]
+    Onlooker Bee [3/10] selected source 3... Improved! 83.78% [107.8s]
+    Onlooker Bee [4/10] selected source 4... No improvement. [97.3s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [102.9s]
+    Onlooker Bee [6/10] selected source 6... No improvement. [100.6s]
+    Onlooker Bee [7/10] selected source 7... Improved! 79.90% [104.9s]
+    Onlooker Bee [8/10] selected source 8... No improvement. [103.0s]
+    Onlooker Bee [9/10] selected source 9... No improvement. [96.0s]
+    Onlooker Bee [10/10] selected source 10... Improved! 83.80% [103.3s]
+
+==> Scout Bee: No food source to abandon (max trail=3/5)
+
+================================================================================
+SEARCH CYCLE [3/10]
+Current Best Fitness: 85.19%
+Current Best Code: [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]
+Cycle Time: 1593.21s
+================================================================================
+12/21 08:43:20 PM | Search Cycle [2]     Best Honey Source [5, 3, 3, 4, 8, 7, 6, 9, 8, 3, 6, 7, 6, 5, 3, 9, 3, 5, 9, 1, 8, 7, 9, 9, 6, 3, 6]    Best Honey Source fitness 85.19%        Time 1593.21s
+
+
+==> Sending Employed Bees (Total: 10)
+    Employed Bee [1/10] searching... No improvement. Keep 78.55% (trail=4) [99.4s]
+    Employed Bee [2/10] searching... No improvement. Keep 85.19% (trail=3) [109.3s]
+    Employed Bee [3/10] searching... No improvement. Keep 83.78% (trail=1) [102.4s]
+    Employed Bee [4/10] searching... No improvement. Keep 83.06% (trail=4) [95.6s]
+    Employed Bee [5/10] searching... No improvement. Keep 82.90% (trail=4) [96.0s]
+    Employed Bee [6/10] searching... No improvement. Keep 82.50% (trail=3) [99.3s]
+    Employed Bee [7/10] searching... No improvement. Keep 79.90% (trail=1) [105.7s]
+    Employed Bee [8/10] searching... No improvement. Keep 82.23% (trail=4) [95.3s]
+    Employed Bee [9/10] searching... No improvement. Keep 84.76% (trail=4) [55.2s]
+    Employed Bee [10/10] searching... No improvement. Keep 83.80% (trail=1) [44.2s]
+
+==> Calculating Probabilities...
+
+==> Sending Onlooker Bees (Total: 10)
+    Onlooker Bee [1/10] selected source 1... No improvement. [42.3s]
+    Onlooker Bee [2/10] selected source 2... No improvement. [44.0s]
+    Onlooker Bee [3/10] selected source 3... No improvement. [43.0s]
+    Onlooker Bee [4/10] selected source 4... No improvement. [43.2s]
+    Onlooker Bee [5/10] selected source 5... No improvement. [43.0s]
+    Onlooker Bee [6/10] selected source 6... No improvement. [56.8s]
+    Onlooker Bee [7/10] selected source 7... No improvement. [76.0s]
+    Onlooker Bee [8/10] selected source 8... 
