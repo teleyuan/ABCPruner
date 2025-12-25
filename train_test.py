@@ -355,7 +355,7 @@ def train_model(args):
         # 定期保存检查点
         if epoch % 5 == 0:
             model_state = model.module.state_dict() if len(args.gpus) > 1 else model.state_dict()
-            checkpoint_path = save_dir / f'checkpoint_epoch_{epoch}.pth'
+            checkpoint_path = save_dir / f'checkpoint_{args.arch}_{args.cfg}_epoch_{epoch}.pth'
             torch.save({
                 'epoch': epoch,
                 'arch': args.arch,
