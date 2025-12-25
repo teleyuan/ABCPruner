@@ -802,14 +802,19 @@ def initilize():
         OnLooker[i].rfitness = NectraSource[i].rfitness
         OnLooker[i].trail = NectraSource[i].trail
 
-    # 初始化全局最优解（使用第一个食物源的信息）
-    best_honey.code = copy.deepcopy(NectraSource[0].code)
-    best_honey.fitness = NectraSource[0].fitness
-    best_honey.rfitness = NectraSource[0].rfitness
-    best_honey.trail = NectraSource[0].trail
+    # 初始化全局最优解（选择适应度最高的食物源）
+    best_index = 0
+    for i in range(1, args.food_number):
+        if NectraSource[i].fitness > NectraSource[best_index].fitness:
+            best_index = i
+
+    best_honey.code = copy.deepcopy(NectraSource[best_index].code)
+    best_honey.fitness = NectraSource[best_index].fitness
+    best_honey.rfitness = NectraSource[best_index].rfitness
+    best_honey.trail = NectraSource[best_index].trail
 
     print(f'\n==> Initialization complete!')
-    print(f'==> Initial best fitness: {float(best_honey.fitness):.2f}%')
+    print(f'==> Initial best fitness: {float(best_honey.fitness):.2f}% (food source {best_index+1})')
 
 def sendEmployedBees():
     """
@@ -1091,6 +1096,11 @@ def main():
             # 初始化蜂群和食物源
             initilize()
 
+            # 早停机制相关变量
+            no_improvement_cycles = 0  # 记录连续无改进的周期数
+            early_stop_patience = 3    # 连续3个周期无改进则早停
+            last_best_fitness = best_honey.fitness
+
             # ABC算法主循环：执行max_cycle个搜索周期
             for cycle in range(args.max_cycle):
                 current_time = time.time()
@@ -1123,6 +1133,22 @@ def main():
 
                 # 第五阶段：记忆最优解
                 memorizeBestSource()
+
+                # 早停机制：检查是否有改进
+                if best_honey.fitness > last_best_fitness:
+                    # 有改进，重置计数器
+                    no_improvement_cycles = 0
+                    last_best_fitness = best_honey.fitness
+                else:
+                    # 无改进，增加计数器
+                    no_improvement_cycles += 1
+                    print(f'\n>>> No improvement for {no_improvement_cycles} consecutive cycle(s)')
+
+                    if no_improvement_cycles >= early_stop_patience:
+                        print(f'\n>>> Early stopping triggered! No improvement for {early_stop_patience} cycles.')
+                        print(f'>>> Final Best Fitness: {float(best_honey.fitness):.2f}%')
+                        print(f'>>> Stopping at cycle {cycle+1}/{args.max_cycle}')
+                        break
 
             print('==> BeePruning Complete!')
             bee_end_time = time.time()
@@ -1208,6 +1234,7 @@ def main():
         test(model, loader.testLoader)
     else:
         # 训练模式：从start_epoch开始训练到num_epochs
+        best_epoch = start_epoch  # 记录最佳epoch
         for epoch in range(start_epoch, args.num_epochs):
             # 训练一个epoch
             train(model, optimizer, loader.trainLoader, args, epoch)
@@ -1220,6 +1247,9 @@ def main():
 
             # 判断是否是最优模型
             is_best = best_acc < test_acc
+            if is_best:
+                best_epoch = epoch
+                logger.info('*** New best model found at epoch {} with accuracy {:.2f}% ***'.format(epoch, float(test_acc)))
             best_acc = max(best_acc, test_acc)
 
             # 获取模型权重（多GPU情况下需要访问module属性）
@@ -1238,8 +1268,8 @@ def main():
             # 保存检查点
             checkpoint.save_model(state, epoch + 1, is_best)
 
-        # 训练结束，打印最优准确率
-        logger.info('Best accurary: {:.3f}'.format(float(best_acc)))
+        # 训练结束，打印最优准确率和对应的epoch
+        logger.info('Best accurary: {:.3f} at epoch {}'.format(float(best_acc), best_epoch))
 
 if __name__ == '__main__':
     main()

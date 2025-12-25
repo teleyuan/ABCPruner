@@ -88,7 +88,7 @@ class Data:
             trainset,
             batch_size=args.train_batch_size,  # 批次大小（通常256或更大）
             shuffle=True,                       # 随机打乱（训练集需要打乱）
-            num_workers=2,                      # 数据加载的并行worker数量
+            num_workers=args.num_workers,                      # 数据加载的并行worker数量
             pin_memory=pin_memory)              # 是否将数据加载到CUDA固定内存
 
         # ==================== 验证集数据预处理 ====================
@@ -112,5 +112,5 @@ class Data:
             testset,
             batch_size=args.eval_batch_size,  # 评估批次大小（通常可以更大）
             shuffle=False,                     # 验证集不需要打乱
-            num_workers=2,                     # 并行worker数量
+            num_workers=args.num_workers,                     # 并行worker数量
             pin_memory=True)                   # 启用pin_memory加速

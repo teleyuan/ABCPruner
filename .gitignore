@@ -7,3 +7,5 @@ data/*
 !data/**/*.py
 
 experiments/*
+
+models/

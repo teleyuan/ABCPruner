@@ -39,11 +39,11 @@ class Data:
         trainset = CIFAR100(root=args.data_path, train=True, download=True, transform=transform_train)
         self.trainLoader = DataLoader(
             trainset, batch_size=args.train_batch_size, shuffle=True,
-            num_workers=2, pin_memory=pin_memory
+            num_workers=args.num_workers, pin_memory=pin_memory
         )
 
         # 加载CIFAR-100测试集
         testset = CIFAR100(root=args.data_path, train=False, download=False, transform=transform_test)
         self.testLoader = DataLoader(
             testset, batch_size=args.eval_batch_size, shuffle=False,
-            num_workers=2, pin_memory=pin_memory)
+            num_workers=args.num_workers, pin_memory=pin_memory)
