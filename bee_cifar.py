@@ -7,6 +7,27 @@
 2. 支持多种网络架构(VGG, ResNet, GoogLeNet, DenseNet)
 3. 在CIFAR10/CIFAR100/ImageNet数据集上训练和测试
 4. 自动保存最优剪枝模型和训练检查点
+
+REM 使用ABC算法搜索最优剪枝配置并训练
+python bee_cifar.py `
+    --data_set cifar10 `
+    --data_path ./data `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --honey_model ./pretrain/resnet56_cifar10.pth `
+    --job_dir ./experiments/resnet56_prune `
+    --gpus 0 `
+    --lr 0.01 `
+    --lr_decay_step 50 100 `
+    --num_epochs 150 `
+    --train_batch_size 128 `
+    --calfitness_epoch 2 `
+    --max_cycle 10 `
+    --max_preserve 9 `
+    --food_number 10 `
+    --food_limit 5 `
+    --random_rule random_pretrain `
+    --num_workers 4
 """
 
 import torch
