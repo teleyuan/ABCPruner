@@ -4,7 +4,8 @@
 功能:
 1. 训练神经网络模型
 2. 测试模型在测试集上的准确率
-3. 保存最佳模型
+3. 保存最佳模型和定期检查点
+4. 从检查点恢复训练
 
 使用示例:
     # 训练模型
@@ -18,7 +19,18 @@
         --lr 0.01 `
         --gpus 0 `
         --save_dir ./models `
-        --num_workers 2
+        --num_workers 2 `
+        --resume ./models/checkpoint_epoch_10.pth
+
+    # 从检查点恢复训练
+    python train_test.py --mode train `
+        --arch resnet_cifar `
+        --cfg resnet56 `
+        --data_set cifar10 `
+        --data_path ./data `
+        --epochs 10 `
+        --resume ./models/checkpoint_epoch_10.pth `
+        --gpus 0
 
     # 测试模型
     python train_test.py --mode test `
@@ -29,7 +41,7 @@
         --model_path ./pretrain/resnet56_cifar10.pth `
         --gpus 0 `
         --eval_batch_size 64 `
-        --num_workers 2 `
+        --num_workers 2
 """
 
 import torch
@@ -94,6 +106,8 @@ def get_args():
                         help='模型保存目录')
     parser.add_argument('--model_path', type=str, default=None,
                         help='测试时使用的模型路径')
+    parser.add_argument('--resume', type=str, default=None,
+                        help='从检查点恢复训练的路径')
 
     args = parser.parse_args()
     return args
@@ -223,7 +237,7 @@ def train_model(args):
         raise ValueError(f'不支持的数据集: {args.data_set}')
 
     # 创建模型
-    print(f'\n==> 创建模型: {args.arch} - {args.cfg}')
+    print(f'==> 创建模型: {args.arch} - {args.cfg}')
     if args.arch == 'resnet_cifar':
         model = import_module(f'model.{args.arch}').resnet(args.cfg).to(device)
     elif args.arch == 'resnet':
@@ -256,12 +270,47 @@ def train_model(args):
     save_dir = Path(args.save_dir)
     save_dir.mkdir(parents=True, exist_ok=True)
 
-    # 训练循环
+    # 训练循环初始化
+    start_epoch = 1
     best_acc = 0.0
     best_epoch = 0
 
-    print(f'\n==> 开始训练 {args.epochs} 个epoch')
-    for epoch in range(args.epochs):
+    # 检查是否需要从检查点恢复训练
+    if args.resume:
+        if os.path.exists(args.resume):
+            print(f'==> 从检查点恢复训练: {args.resume}')
+            checkpoint = torch.load(args.resume, map_location=device)
+
+            # 恢复模型权重
+            if len(args.gpus) > 1:
+                model.module.load_state_dict(checkpoint['state_dict'])
+            else:
+                model.load_state_dict(checkpoint['state_dict'])
+
+            # 恢复优化器状态
+            if 'optimizer' in checkpoint:
+                optimizer.load_state_dict(checkpoint['optimizer'])
+                print('==> 优化器状态已恢复')
+
+            # 恢复学习率调度器状态（如果有）
+            if 'scheduler' in checkpoint:
+                scheduler.load_state_dict(checkpoint['scheduler'])
+                print('==> 学习率调度器状态已恢复')
+
+            # 恢复起始epoch
+            start_epoch = checkpoint['epoch']
+
+            # 恢复最佳准确率（如果有）
+            if 'best_acc' in checkpoint:
+                best_acc = checkpoint['best_acc']
+                print(f'==> 历史最佳准确率: {best_acc:.2f}%')
+
+            print(f'==> 从 epoch {start_epoch} 继续训练')
+        else:
+            raise FileNotFoundError(f'检查点文件不存在: {args.resume}')
+
+    print(f'==> 开始训练 (Epoch {start_epoch} → {args.epochs})')
+    for epoch in range(start_epoch, args.epochs + 1):
         # 训练
         train_loss, train_acc = train_epoch(
             model, loader.trainLoader, criterion, optimizer, device, epoch
@@ -272,7 +321,7 @@ def train_model(args):
 
         # 打印本epoch的完整统计信息
         print(f'\n{"="*60}')
-        print(f'Epoch [{epoch}/{args.epochs-1}] Summary:')
+        print(f'Epoch [{epoch}/{args.epochs}] Summary:')
         print(f'  Train - Loss: {train_loss:.4f} | Acc: {train_acc:.2f}%')
         print(f'  Test  - Loss: {test_loss:.4f}  | Acc: {test_acc:.2f}%')
         print(f'{"="*60}')
@@ -298,10 +347,10 @@ def train_model(args):
                 'test_loss': test_loss,
                 'optimizer': optimizer.state_dict(),
             }, save_path)
-            print(f'\n*** 保存最佳模型 (Epoch {epoch}, Test Acc: {best_acc:.2f}%) 到 {save_path} ***')
+            print(f'\n保存最佳模型 (Epoch {epoch}, Test Acc: {best_acc:.2f}%) 到 {save_path}')
 
         # 定期保存检查点
-        if (epoch + 1) % 5 == 0:
+        if epoch % 5 == 0:
             model_state = model.module.state_dict() if len(args.gpus) > 1 else model.state_dict()
             checkpoint_path = save_dir / f'checkpoint_epoch_{epoch}.pth'
             torch.save({
@@ -313,14 +362,16 @@ def train_model(args):
                 'train_acc': train_acc,
                 'test_loss': test_loss,
                 'test_acc': test_acc,
+                'best_acc': best_acc,
                 'optimizer': optimizer.state_dict(),
+                'scheduler': scheduler.state_dict(),
             }, checkpoint_path)
             print(f'保存检查点到 {checkpoint_path}')
 
     print('\n' + '='*60)
     print(f'训练完成!')
     print(f'最佳准确率: {best_acc:.2f}% (Epoch {best_epoch})')
-    print(f'最佳模型保存在: {save_dir / "best_model.pth"}')
+    print(f'最佳模型保存在: {save_dir / f"best_{args.arch}_{args.cfg}_epoch{best_epoch}.pth"}')
     print('='*60)
 
 
@@ -353,7 +404,7 @@ def test_model(args):
         raise ValueError(f'不支持的数据集: {args.data_set}')
 
     # 加载模型
-    print(f'\n==> 加载模型: {args.model_path}')
+    print(f'==> 加载模型: {args.model_path}')
     checkpoint = torch.load(args.model_path, map_location=device)
 
     # 获取模型配置

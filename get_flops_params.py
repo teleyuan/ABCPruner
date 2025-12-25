@@ -7,7 +7,10 @@
 3. 支持多种网络架构(VGG, ResNet, GoogLeNet, DenseNet)
 
 使用示例:
-python get_flops_params.py --arch vgg_cifar --cfg vgg16 --honey "5,5,5,5,5,5,5,5,5,5,5,5,5"
+python get_flops_params.py 
+    --arch vgg_cifar `
+    --cfg vgg16 `
+    --honey "5,5,5,5,5,5,5,5,5,5,5,5,5"
 """
 
 import torch
