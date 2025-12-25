@@ -165,6 +165,13 @@ parser.add_argument(
 )
 
 parser.add_argument(
+    '--num_workers',
+    type=int,
+    default=4,
+    help='Number of data loading workers. default:4'
+)
+
+parser.add_argument(
     '--random_rule',
     type=str,
     default='default',

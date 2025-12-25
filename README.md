@@ -400,6 +400,7 @@ REM 使用多个GPU（自动数据并行）
 | `--eval_batch_size` | int | `256` | **测试batch size**。评估时的batch size |
 | `--momentum` | float | `0.9` | **SGD动量系数**。加速收敛并减少震荡 |
 | `--weight_decay` | float | `1e-4` | **权重衰减（L2正则化）系数**。防止过拟合 |
+| `--num_workers` | int | `4` | **数据加载线程数**。并行加载数据的worker进程数量 |
 
 **详细说明：**
 - `lr`: 初始学习率
@@ -413,17 +414,22 @@ REM 使用多个GPU（自动数据并行）
 - `train_batch_size` 和 `eval_batch_size`: 根据GPU显存调整
   - 单卡GTX 1080Ti (11GB): 128-256 (CIFAR), 64-128 (ImageNet)
   - 多卡可按比例增大
+- `num_workers`: 数据加载并行进程数
+  - 值越大，数据加载越快，但占用更多CPU和内存
+  - 推荐值: 2-8（根据CPU核心数调整）
+  - 如果遇到"too many open files"错误，减小此值
+  - Windows系统建议使用较小的值（2-4）
 
 **推荐配置：**
 ```cmd
 REM CIFAR-10/100 标准配置
---lr 0.01 --lr_decay_step 50 100 --num_epochs 150 --train_batch_size 128
+--lr 0.01 --lr_decay_step 50 100 --num_epochs 150 --train_batch_size 128 --num_workers 4
 
 REM ImageNet 标准配置
---lr 0.01 --lr_decay_step 30 60 --num_epochs 90 --train_batch_size 256 --warm_up
+--lr 0.01 --lr_decay_step 30 60 --num_epochs 90 --train_batch_size 256 --num_workers 4 --warm_up
 
 REM ImageNet 长训练配置
---lr 0.01 --lr_decay_step 75 112 --num_epochs 150 --train_batch_size 256 --warm_up
+--lr 0.01 --lr_decay_step 75 112 --num_epochs 150 --train_batch_size 256 --num_workers 4 --warm_up
 ```
 
 ---
