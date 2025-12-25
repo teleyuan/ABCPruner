@@ -299,7 +299,10 @@ def train_model(args):
 
             # 恢复起始epoch
             start_epoch = checkpoint['epoch']
-
+            if start_epoch >= args.epochs:
+                print(f'==> 警告: 恢复的epoch ({start_epoch}) 已大于等于总训练轮数 ({args.epochs})')
+                raise ValueError('请增加 --epochs 参数以继续训练')
+            
             # 恢复最佳准确率（如果有）
             if 'best_acc' in checkpoint:
                 best_acc = checkpoint['best_acc']
