@@ -135,12 +135,12 @@ class checkpoint():
             epoch: 当前epoch数
             is_best: 是否是最优模型
         """
-        save_path = f'{self.ckpt_dir}/model_{epoch}.pt'
+        save_path = f'{self.ckpt_dir}/model_{epoch}.pth'
         torch.save(state, save_path)
 
         # 如果是最优模型，额外保存一份
         if is_best:
-            shutil.copyfile(save_path, f'{self.ckpt_dir}/model_best.pt')
+            shutil.copyfile(save_path, f'{self.ckpt_dir}/model_best.pth')
 
     def save_honey_model(self, state):
         """
@@ -149,7 +149,7 @@ class checkpoint():
         参数:
             state: 模型状态字典
         """
-        save_path = f'{self.ckpt_dir}/bestmodel_after_bee.pt'
+        save_path = f'{self.ckpt_dir}/bestmodel_after_bee.pth'
         torch.save(state, save_path)
 
 
