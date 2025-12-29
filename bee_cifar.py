@@ -1109,13 +1109,18 @@ def main():
 
         # 如果没有指定best_honey，需要运行ABC算法搜索最优剪枝配置
         if args.best_honey == None:
-            start_time = time.time()
             bee_start_time = time.time()
 
             print('==> Start BeePruning..')
 
             # 初始化蜂群和食物源
             initilize()
+
+            # 记录初始化阶段的最优解
+            logger.info(
+                'Initialization Complete\t Best Honey Source {}\tBest Honey Source fitness {:.2f}%\n'
+                .format(best_honey.code, float(best_honey.fitness))
+            )
 
             # 早停机制相关变量
             no_improvement_cycles = 0  # 记录连续无改进的周期数
@@ -1124,20 +1129,12 @@ def main():
 
             # ABC算法主循环：执行max_cycle个搜索周期
             for cycle in range(args.max_cycle):
-                current_time = time.time()
+                cycle_start_time = time.time()
                 print('\n' + '='*80)
                 print(f'SEARCH CYCLE [{cycle+1}/{args.max_cycle}]')
                 print(f'Current Best Fitness: {float(best_honey.fitness):.2f}%')
                 print(f'Current Best Code: {best_honey.code}')
-                if cycle > 0:
-                    print(f'Cycle Time: {current_time - start_time:.2f}s')
                 print('='*80)
-
-                logger.info(
-                    'Search Cycle [{}]\t Best Honey Source {}\tBest Honey Source fitness {:.2f}%\tTime {:.2f}s\n'
-                    .format(cycle, best_honey.code, float(best_honey.fitness), (current_time - start_time) if cycle > 0 else 0)
-                )
-                start_time = time.time()
 
                 # 第一阶段：派遣雇佣蜂
                 sendEmployedBees()
@@ -1154,6 +1151,14 @@ def main():
 
                 # 第五阶段：记忆最优解
                 memorizeBestSource()
+
+                # 记录本周期结束后的最优解
+                cycle_end_time = time.time()
+                cycle_time = cycle_end_time - cycle_start_time
+                logger.info(
+                    'Search Cycle [{}]\t Best Honey Source {}\tBest Honey Source fitness {:.2f}%\tTime {:.2f}s\n'
+                    .format(cycle + 1, best_honey.code, float(best_honey.fitness), cycle_time)
+                )
 
                 # 早停机制：检查是否有改进
                 if best_honey.fitness > last_best_fitness:
