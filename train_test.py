@@ -274,12 +274,21 @@ def train_model(args):
     start_epoch = 1
     best_acc = 0.0
     best_epoch = 0
+    honey_code = None  # 用于记录剪枝编码（如果有）
 
     # 检查是否需要从检查点恢复训练
     if args.resume:
         if os.path.exists(args.resume):
             print(f'==> 从检查点恢复训练: {args.resume}')
             checkpoint = torch.load(args.resume, map_location=device)
+
+            # 检查是否是剪枝模型
+            if 'honey_code' in checkpoint:
+                honey_code = checkpoint['honey_code']
+                print(f'==> 检测到剪枝模型，Honey编码: {honey_code}')
+                print('==> 警告: 当前模型是标准结构，无法加载剪枝模型权重')
+                print('==> 如需从剪枝模型恢复训练，请使用 bee_cifar.py 的 --resume 参数')
+                raise ValueError('无法在标准模型上加载剪枝模型权重')
 
             # 恢复模型权重
             if len(args.gpus) > 1:
@@ -302,7 +311,7 @@ def train_model(args):
             if start_epoch >= args.epochs:
                 print(f'==> 警告: 恢复的epoch ({start_epoch}) 已大于等于总训练轮数 ({args.epochs})')
                 raise ValueError('请增加 --epochs 参数以继续训练')
-            
+
             # 恢复最佳准确率（如果有）
             if 'best_acc' in checkpoint:
                 best_acc = checkpoint['best_acc']
@@ -420,19 +429,31 @@ def test_model(args):
         cfg = args.cfg
         print(f'使用命令行指定的架构: {arch} - {cfg}')
 
-    # 创建模型
+    # 检查是否是剪枝模型（包含honey_code）
+    honey_code = checkpoint.get('honey_code', None)
+
+    if honey_code is not None:
+        print(f'检测到剪枝模型，Honey编码: {honey_code}')
+
+    # 创建模型（根据是否有honey_code决定是否使用剪枝结构）
     if arch == 'resnet_cifar':
-        model = import_module(f'model.{arch}').resnet(cfg).to(device)
+        model = import_module(f'model.{arch}').resnet(cfg, honey=honey_code).to(device)
     elif arch == 'resnet':
-        model = import_module(f'model.{arch}').resnet(cfg).to(device)
+        model = import_module(f'model.{arch}').resnet(cfg, honey=honey_code).to(device)
     elif arch == 'vgg_cifar':
-        model = import_module(f'model.{arch}').VGG(cfg).to(device)
+        if honey_code is not None:
+            model = import_module(f'model.{arch}').BeeVGG(cfg, honeysource=honey_code).to(device)
+        else:
+            model = import_module(f'model.{arch}').VGG(cfg).to(device)
     elif arch == 'vgg':
-        model = import_module(f'model.{arch}').VGG(cfg).to(device)
+        if honey_code is not None:
+            model = import_module(f'model.{arch}').BeeVGG(honeysource=honey_code).to(device)
+        else:
+            model = import_module(f'model.{arch}').VGG(cfg).to(device)
     elif arch == 'googlenet':
-        model = import_module(f'model.{arch}').googlenet().to(device)
+        model = import_module(f'model.{arch}').googlenet(honey=honey_code).to(device)
     elif arch == 'densenet':
-        model = import_module(f'model.{arch}').densenet().to(device)
+        model = import_module(f'model.{arch}').densenet(honey=honey_code).to(device)
     else:
         raise ValueError(f'不支持的模型架构: {arch}')
 
@@ -440,7 +461,11 @@ def test_model(args):
     model.load_state_dict(checkpoint['state_dict'])
 
     if 'best_acc' in checkpoint:
-        print(f'模型训练时的最佳准确率: {checkpoint["best_acc"]:.2f}%')
+        best_acc = checkpoint['best_acc']
+        # 处理best_acc可能是Tensor的情况
+        if isinstance(best_acc, torch.Tensor):
+            best_acc = best_acc.item()
+        print(f'模型训练时的最佳准确率: {best_acc:.2f}%')
     if 'epoch' in checkpoint:
         print(f'模型训练的epoch: {checkpoint["epoch"]}')
 

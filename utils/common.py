@@ -135,7 +135,7 @@ class checkpoint():
             epoch: 当前epoch数
             is_best: 是否是最优模型
         """
-        save_path = f'{self.ckpt_dir}/model_{epoch}.pth'
+        save_path = f'{self.ckpt_dir}/model_epoch_{epoch}.pth'
         torch.save(state, save_path)
 
         # 如果是最优模型，额外保存一份

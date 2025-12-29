@@ -308,9 +308,6 @@ def load_dense_honey_model(model, random_rule):
 
     model.load_state_dict(state_dict)
 
-
-
-
 def load_google_honey_model(model, random_rule):
     """
     为剪枝后的GoogLeNet模型加载预训练权重
@@ -468,7 +465,6 @@ def load_google_honey_model(model, random_rule):
             state_dict[name + '.bias'] = oristate_dict[name + '.bias']
 
     model.load_state_dict(state_dict)
-
 
 def load_resnet_honey_model(model, random_rule):
     """
@@ -1098,7 +1094,7 @@ def main():
     origin_model.load_state_dict(ckpt['state_dict'])
     oristate_dict = origin_model.state_dict()  # 保存原始模型的状态字典，用于后续权重继承
 
-    start_epoch = 0  # 训练起始epoch
+    start_epoch = 1  # 训练起始epoch
     best_acc = 0.0   # 记录最优准确率
     code = []        # 剪枝编码
 
@@ -1179,7 +1175,7 @@ def main():
             print('==> BeePruning Complete!')
             bee_end_time = time.time()
             logger.info(
-                'Best Honey Source {}\tBest Honey Source fitness {:.2f}%\tTime Used{:.2f}s\n'
+                'Best Honey Source {}\tBest Honey Source fitness {:.2f}%\tTime Used {:.2f}s\n'
                 .format(best_honey.code, float(best_honey.fitness), (bee_end_time - bee_start_time))
             )
         else:
@@ -1261,7 +1257,7 @@ def main():
     else:
         # 训练模式：从start_epoch开始训练到num_epochs
         best_epoch = start_epoch  # 记录最佳epoch
-        for epoch in range(start_epoch, args.num_epochs):
+        for epoch in range(start_epoch, args.num_epochs + 1):
             # 训练一个epoch
             train(model, optimizer, loader.trainLoader, args, epoch)
 
@@ -1275,7 +1271,7 @@ def main():
             is_best = best_acc < test_acc
             if is_best:
                 best_epoch = epoch
-                logger.info('*** New best model found at epoch {} with accuracy {:.2f}% ***'.format(epoch, float(test_acc)))
+                logger.info('*** New best model found at epoch {} with accuracy {:.2f}% ***\n'.format(epoch, float(test_acc)))
             best_acc = max(best_acc, test_acc)
 
             # 获取模型权重（多GPU情况下需要访问module属性）
@@ -1292,7 +1288,7 @@ def main():
             }
 
             # 保存检查点
-            checkpoint.save_model(state, epoch + 1, is_best)
+            checkpoint.save_model(state, epoch, is_best)
 
         # 训练结束，打印最优准确率和对应的epoch
         logger.info('Best accurary: {:.3f} at epoch {}'.format(float(best_acc), best_epoch))
