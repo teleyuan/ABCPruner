@@ -7,10 +7,11 @@
 3. 支持多种网络架构(VGG, ResNet, GoogLeNet, DenseNet)
 
 使用示例:
-python get_flops_params.py 
-    --arch vgg_cifar `
-    --cfg vgg16 `
-    --honey "5,5,5,5,5,5,5,5,5,5,5,5,5"
+python get_flops_params.py `
+    --data_set cifar10 `
+    --arch resnet_cifar `
+    --cfg resnet56 `
+    --honey "3, 7, 3, 7, 3, 1, 7, 2, 5, 4, 7, 3, 6, 8, 7, 4, 1, 5, 5, 2, 9, 4, 9, 8, 9, 1, 6"
 """
 
 import torch
@@ -126,8 +127,8 @@ print('Channels:%d'%(channel))
 print('Params: %.2f M'%(params/1000000))
 print('FLOPS: %.2f M'%(flops/1000000))
 
-print('--------------Compress Rate (压缩率)--------------')
-print('Channels Prune Rate: %d/%d (%.2f%%)' % (channel, orichannel, 100. * (orichannel - channel) / orichannel))
-print('Params Compress Rate: %.2f M/%.2f M(%.2f%%)' % (params/1000000, oriparams/1000000, 100. * (oriparams- params) / oriparams))
-print('FLOPS Compress Rate: %.2f M/%.2f M(%.2f%%)' % (flops/1000000, oriflops/1000000, 100. * (oriflops- flops) / oriflops))
+print('--------------Compress Rate (压缩率)----------------')
+print('Channels Prune Rate: (%d - %d) / %d (%.2f%%)' % (orichannel, channel, orichannel, 100. * (orichannel - channel) / orichannel))
+print('Params Compress Rate: %.2f M / %.2f M (%.2f%%)' % (params/1000000, oriparams/1000000, 100. * (oriparams- params) / oriparams))
+print('FLOPS Compress Rate: %.2f M / %.2f M (%.2f%%)' % (flops/1000000, oriflops/1000000, 100. * (oriflops- flops) / oriflops))
 
